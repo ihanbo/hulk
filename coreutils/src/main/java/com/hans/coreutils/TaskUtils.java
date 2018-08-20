@@ -100,6 +100,7 @@ public class TaskUtils {
                     return activity;
                 }
             }
+
         } catch (ClassNotFoundException e) {
             e.printStackTrace();
         } catch (IllegalAccessException e) {
