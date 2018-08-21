@@ -1,1 +1,1 @@
-include ':app', ':coreutils', ':applicationholder'
+include ':app', ':coreutils'
