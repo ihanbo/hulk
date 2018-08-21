@@ -1,2 +1,5 @@
 apply plugin: 'com.android.library'
 apply from: 'https://raw.githubusercontent.com/ihanbo/gradleBaseConfig/master/baseconfig.gradle'
+dependencies {
+    compileOnly 'com.hans.applicationholder:applicationholder:1.1'
+}

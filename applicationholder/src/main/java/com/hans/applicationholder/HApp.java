@@ -19,8 +19,8 @@ public class HApp extends Application {
     private DisplayMetrics mDisplayMetrics;
 
 
-    public static HApp getInstance() {
-        return mInstance;
+    public static Application getApplication() {
+        return checkNotNull(mInstance).mApp;
     }
 
     private HApp(Application app, boolean debug) {
