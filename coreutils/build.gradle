@@ -1,7 +1,7 @@
 apply plugin: 'com.android.library'
-apply from: 'https://raw.githubusercontent.com/ihanbo/gradleBaseConfig/master/baseconfig.gradle'
+apply from: 'https://raw.githubusercontent.com/ihanbo/gradleBaseConfig/master/module_build.gradle'
 dependencies {
-    compileOnly 'com.hans.applicationholder:applicationholder:1.1'
+    compileOnly DEP.APP_HOLDER
     implementation DEP.SUPPORT.recyclerView
     implementation DEP.SUPPORT.annotations
 }

@@ -1,5 +1,5 @@
 apply plugin: 'com.android.application'
-apply from: 'https://raw.githubusercontent.com/ihanbo/gradleBaseConfig/master/baseconfig.gradle'
+apply from: 'https://raw.githubusercontent.com/ihanbo/gradleBaseConfig/master/module_build.gradle'
 
 android {
     defaultConfig {
