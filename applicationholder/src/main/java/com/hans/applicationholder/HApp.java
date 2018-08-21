@@ -17,16 +17,16 @@ public class HApp extends Application {
     private Application mApp;
     private boolean mDebug;
     private DisplayMetrics mDisplayMetrics;
+    private int mScreenWidth;
+    private int mScreenHeight;
 
-
-    public static Application getApplication() {
-        return checkNotNull(mInstance).mApp;
-    }
 
     private HApp(Application app, boolean debug) {
         mApp = app;
         mDebug = debug;
         mDisplayMetrics = app.getResources().getDisplayMetrics();
+        mScreenWidth = mDisplayMetrics.widthPixels;
+        mScreenHeight = mDisplayMetrics.heightPixels;
     }
 
     /**
@@ -51,9 +51,12 @@ public class HApp extends Application {
     }
 
 
+    public static Application getApp() {
+        return checkNotNull(mInstance).mApp;
+    }
+
+
     /**
-     * 是否可用
-     *
      * @return 是否可用
      */
     public static boolean isOK() {
@@ -62,15 +65,34 @@ public class HApp extends Application {
 
 
     public static int dp2px(float dp) {
-        checkNotNull(mInstance);
-        return mInstance._dp2px(dp);
+        return checkNotNull(mInstance)._dp2px(dp);
     }
 
     public static int sp2px(float sp) {
-        checkNotNull(mInstance);
-        return mInstance._sp2px(sp);
+        return checkNotNull(mInstance)._sp2px(sp);
     }
 
+
+    /**
+     * @return 屏幕宽度
+     */
+    public static int getScreenWidth() {
+        return checkNotNull(mInstance).mScreenWidth;
+    }
+
+    /**
+     * @return 屏幕高度
+     */
+    public static int getScreenHeight() {
+        return checkNotNull(mInstance).mScreenHeight;
+    }
+
+    /**
+     * @return 是否是debug
+     */
+    public static boolean isDebug() {
+        return checkNotNull(mInstance).mDebug;
+    }
 
     public static DisplayMetrics getDisplayMetrics() {
         return checkNotNull(mInstance).mDisplayMetrics;
