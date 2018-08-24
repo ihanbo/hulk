@@ -1,0 +1,16 @@
+apply plugin: 'com.android.library'
+ext {
+    BT_GROUP = ''
+    BT_ARTIFACT = ''
+    BT_VERSION = '1.0'
+    BT_DESC = ''
+}
+apply from: 'https://raw.githubusercontent.com/ihanbo/gradleBaseConfig/master/module_build.gradle'
+//apply from: 'https://raw.githubusercontent.com/ihanbo/gradleBaseConfig/master/bintray_push.gradle'
+
+
+
+
+dependencies {
+    
+}

@@ -1,0 +1,28 @@
+apply plugin: 'com.android.library'
+ext {
+    BT_GROUP = ''
+    BT_ARTIFACT = ''
+    BT_VERSION = '1.0'
+    BT_DESC = ''
+}
+apply from: 'https://raw.githubusercontent.com/ihanbo/gradleBaseConfig/master/module_build.gradle'
+//apply from: 'https://raw.githubusercontent.com/ihanbo/gradleBaseConfig/master/bintray_push.gradle'
+
+
+android {
+
+    defaultConfig {
+    }
+}
+
+dependencies{
+    implementation DEP.ROOM.room
+    implementation DEP.ROOM.room_ap
+    implementation DEP.ROOM.room_rx
+
+    implementation DEP.GLIDE.glide
+    implementation DEP.GLIDE.glide_ap
+    implementation DEP.GLIDE.glide_ok
+}
+
+
