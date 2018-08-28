@@ -11,7 +11,7 @@ import com.hans.applicationholder.HApp;
 public class Utils {
 
     public static Application getApp() {
-        return HApp.getApplication();
+        return HApp.getApp();
     }
 
 

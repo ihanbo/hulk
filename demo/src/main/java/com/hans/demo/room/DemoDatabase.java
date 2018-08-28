@@ -5,22 +5,21 @@ import android.arch.persistence.room.Room;
 import android.arch.persistence.room.RoomDatabase;
 import android.content.Context;
 
-/**
- * The Room database that contains the Users table
- */
+
+
 @Database(entities = {User.class}, version = 1)
-public abstract class UsersDatabase extends RoomDatabase {
+public abstract class DemoDatabase extends RoomDatabase {
 
-    private static volatile UsersDatabase INSTANCE;
+    private static volatile DemoDatabase INSTANCE;
 
-    public abstract UserDao userDao();
+    public abstract UserDao getSomeHahaUserDao();
 
-    public static UsersDatabase getInstance(Context context) {
+    public static DemoDatabase getInstance(Context context) {
         if (INSTANCE == null) {
-            synchronized (UsersDatabase.class) {
+            synchronized (DemoDatabase.class) {
                 if (INSTANCE == null) {
                     INSTANCE = Room.databaseBuilder(context.getApplicationContext(),
-                            UsersDatabase.class, "Sample.db")
+                            DemoDatabase.class, "demo.db")
                             .build();
                 }
             }
