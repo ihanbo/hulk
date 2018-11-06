@@ -1,4 +1,4 @@
-apply plugin: 'com.android.library'
+apply plugin: 'com.android.application'
 ext {
     BT_GROUP = ''
     BT_ARTIFACT = ''
@@ -11,18 +11,29 @@ apply from: 'https://raw.githubusercontent.com/ihanbo/gradleBaseConfig/master/mo
 
 android {
 
+    sourceSets {
+        main.res.srcDirs += ['src/main/mc']
+    }
     defaultConfig {
+        javaCompileOptions {
+            annotationProcessorOptions {
+                arguments = ["room.schemaLocation": "$projectDir/room_schemas".toString()]
+            }
+        }
     }
 }
 
-dependencies{
-    implementation DEP.ROOM.room
-    implementation DEP.ROOM.room_ap
-    implementation DEP.ROOM.room_rx
 
+
+
+dependencies {
+    implementation(DEP.ROOM.room)
+    implementation 'com.android.support.constraint:constraint-layout:1.1.3'
+    annotationProcessor DEP.ROOM.room_ap
+    implementation(DEP.ROOM.room_rx)
+
+    implementation DEP.SUPPORT.recyclerView
     implementation DEP.GLIDE.glide
-    implementation DEP.GLIDE.glide_ap
+    annotationProcessor DEP.GLIDE.glide_ap
     implementation DEP.GLIDE.glide_ok
 }
-
-

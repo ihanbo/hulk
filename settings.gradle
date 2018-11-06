@@ -1,1 +1,2 @@
-include ':app', ':coreutils', ':demo', ':viewdemo'
+include ':app', ':coreutils', ':demo', ':viewdemo', ':kotlindemo', ':net'
+//include ':applicationholder'

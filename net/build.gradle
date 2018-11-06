@@ -1,0 +1,31 @@
+apply plugin: 'com.android.library'
+ext {
+    BT_GROUP = ''
+    BT_ARTIFACT = ''
+    BT_VERSION = '1.0'
+    BT_DESC = ''
+}
+apply from: 'https://raw.githubusercontent.com/ihanbo/gradleBaseConfig/master/module_build.gradle'
+//apply from: 'https://raw.githubusercontent.com/ihanbo/gradleBaseConfig/master/bintray_push.gradle'
+
+
+android {
+
+    defaultConfig {
+
+
+    }
+
+}
+dependencies {
+    compileOnly DEP.APP_HOLDER
+    compileOnly DEP.GSON
+    compileOnly DEP.RX.rx2
+    compileOnly DEP.RX.rx2_android
+    compileOnly DEP.OK.okhttp
+    compileOnly DEP.OK.stetho
+    compileOnly DEP.RETROFIT.rf2
+    compileOnly DEP.RETROFIT.rf2_gson
+    compileOnly DEP.RETROFIT.rf2_rx
+    implementation DEP.SUPPORT.annotations
+}

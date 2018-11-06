@@ -1,0 +1,29 @@
+apply plugin: 'com.android.library'
+apply plugin: 'kotlin-android'
+ext {
+    BT_GROUP = ''
+    BT_ARTIFACT = ''
+    BT_VERSION = '1.0'
+    BT_DESC = ''
+}
+apply from: 'https://raw.githubusercontent.com/ihanbo/gradleBaseConfig/master/module_build.gradle'
+//apply from: 'https://raw.githubusercontent.com/ihanbo/gradleBaseConfig/master/bintray_push.gradle'
+
+
+
+android {
+ 
+    defaultConfig {
+
+    
+    }
+   
+}
+
+dependencies {
+    compile "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
+
+}
+repositories {
+    mavenCentral()
+}

@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/root_view"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/mc_white"
+    android:orientation="vertical"
+    tools:context=".A1">
+
+    <FrameLayout
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/mc_dimen_45_dip"
+        android:background="@null">
+
+        <ImageView
+            android:id="@+id/iv_back"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="left"
+            android:padding="@dimen/mc_dimen_10_dip"
+            android:scaleType="centerInside"
+            android:src="@drawable/mc_ic_compare_menu" />
+
+        <TextView
+            android:id="@+id/tv_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginLeft="@dimen/mc_dimen_45_dip"
+            android:layout_marginRight="@dimen/mc_dimen_45_dip"
+            android:ellipsize="end"
+            android:gravity="center"
+            android:maxEms="12"
+            android:singleLine="true"
+            android:text="车型大全"
+            android:textColor="@android:color/black"
+            android:textSize="14sp" />
+
+        <ImageView
+            android:id="@+id/tv_right"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_gravity="right|center_vertical"
+            android:paddingLeft="@dimen/mc_dimen_5_dip"
+            android:paddingRight="@dimen/mc_dimen_15_dip"
+            android:src="@drawable/mc_ic_compare_menu" />
+    </FrameLayout>
+
+    <View
+        android:id="@+id/title_shadow"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/mc_dimen_0.5_dip"
+        android:layout_below="@+id/toolbar"
+        android:background="#18000000" />
+
+    <!--车型显示行-->
+    <FrameLayout
+        android:id="@+id/top_line"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@null"
+        android:orientation="horizontal">
+
+
+        <com.hans.demo.mc.McCompareHeaderRecyclerView
+            android:id="@+id/rv_car"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="@dimen/mc_dimen_90_dip">
+
+        </com.hans.demo.mc.McCompareHeaderRecyclerView>
+
+        <FrameLayout
+            android:layout_width="@dimen/mc_dimen_101_dip"
+            android:layout_height="match_parent"
+            android:background="@drawable/mc_bg_compare_hide_same">
+
+            <CheckBox
+                android:id="@+id/cb_hide_same"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:background="@null"
+                android:button="@null"
+                android:drawablePadding="@dimen/mc_dimen_5_dip"
+                android:drawableTop="@drawable/mc_ic_compare_menu"
+                android:text="隐藏相同"
+                android:textColor="@color/mc_color_667187"
+                android:textSize="@dimen/mc_dimen_12_dip" />
+        </FrameLayout>
+
+    </FrameLayout>
+
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@null">
+
+        <!--底部参数配置-->
+        <FrameLayout
+            android:id="@+id/df_frame"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/rv_params"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+            </android.support.v7.widget.RecyclerView>
+
+        </FrameLayout>
+
+    </FrameLayout>
+
+
+</LinearLayout>

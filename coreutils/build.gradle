@@ -2,7 +2,7 @@ apply plugin: 'com.android.library'
 apply from: 'https://raw.githubusercontent.com/ihanbo/gradleBaseConfig/master/module_build.gradle'
 dependencies {
     compileOnly DEP.APP_HOLDER
-    compileOnly DEP.GSON
+    compileOnly DEP.GSON,ES
     implementation DEP.SUPPORT.recyclerView
     implementation DEP.SUPPORT.annotations
 }
