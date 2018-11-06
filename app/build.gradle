@@ -6,3 +6,9 @@ android {
         applicationId "com.hans.hulk"
     }
 }
+
+
+dependencies{
+    implementation   DEP.RX.rx2
+    implementation DEP.RX.rx2_android
+}
