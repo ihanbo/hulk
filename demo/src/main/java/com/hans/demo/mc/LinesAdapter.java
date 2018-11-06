@@ -82,9 +82,9 @@ public class LinesAdapter extends RecyclerView.Adapter {
         McCarParamsLine mLineView;
 
         public LineViewHolder(Context context, McCompareTextPool pool, RecyclerView.RecycledViewPool recyclerViewPool, CellsScrollHandler scrollhandler) {
-            super(McCarParamsLine.createForRecyclerView(context, pool, recyclerViewPool));
+            super(McCarParamsLine.createForRecyclerView(context, pool, recyclerViewPool, scrollhandler));
             mLineView = (McCarParamsLine) itemView;
-            scrollhandler.regist(mLineView.getRecyclerView());
+
         }
 
         public void bindData(int position, McParamsModel.McLineBean lineData) {

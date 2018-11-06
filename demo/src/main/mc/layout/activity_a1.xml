@@ -101,11 +101,10 @@
         android:background="@null">
 
         <!--底部参数配置-->
-        <com.hans.demo.mc.DispatchFrameLayout
+        <FrameLayout
             android:id="@+id/df_frame"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:background="#6600ffff">
+            android:layout_height="match_parent">
 
             <android.support.v7.widget.RecyclerView
                 android:id="@+id/rv_params"
@@ -114,7 +113,7 @@
 
             </android.support.v7.widget.RecyclerView>
 
-        </com.hans.demo.mc.DispatchFrameLayout>
+        </FrameLayout>
 
     </FrameLayout>
 

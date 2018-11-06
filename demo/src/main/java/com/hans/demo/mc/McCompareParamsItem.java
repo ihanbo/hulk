@@ -9,11 +9,14 @@ import android.support.v7.widget.RecyclerView;
 import android.util.AttributeSet;
 import android.view.Gravity;
 import android.view.ViewGroup;
+import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import static android.widget.LinearLayout.VERTICAL;
 
 /**
  * 单元格视图框架
@@ -21,8 +24,9 @@ import java.util.List;
  * @author hanbo
  * @date 2018/11/5
  */
-public class McCompareParamsItem extends LinearLayout {
+public class McCompareParamsItem extends FrameLayout {
     private McCompareTextPool mPool;
+    private LinearLayout mContainer;
 
     public McCompareParamsItem(@NonNull Context context, McCompareTextPool pool) {
         super(context);
@@ -35,12 +39,18 @@ public class McCompareParamsItem extends LinearLayout {
         init();
     }
 
+
     private void init() {
         setBackground(new ColorDrawable(Color.TRANSPARENT));
-        setOrientation(VERTICAL);
+        mContainer = new LinearLayout(getContext());
+        mContainer.setOrientation(VERTICAL);
+        mContainer.setGravity(Gravity.CENTER_HORIZONTAL);
+        FrameLayout.LayoutParams lp = new LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+        lp.gravity = Gravity.CENTER;
+        addView(mContainer,lp);
         int padding = McCompareCalculate.dP2px(10);
         setPadding(padding, 0, padding, padding);
-        setGravity(Gravity.CENTER_HORIZONTAL);
+
     }
 
 
@@ -49,7 +59,7 @@ public class McCompareParamsItem extends LinearLayout {
 
     public void setData(List<String> data, int position) {
         mData = data;
-        if (getChildCount() != 0) {
+        if (mContainer.getChildCount() != 0) {
             throw new RuntimeException("not recycle");
         }
         if (data.isEmpty()) {
@@ -59,7 +69,7 @@ public class McCompareParamsItem extends LinearLayout {
         for (int i = 0, len = data.size(); i < len; i++) {
             TextView tv = mPool.get();
             tv.setText(data.get(i));
-            addView(tv);
+            mContainer.addView(tv);
             childs.add(tv);
         }
     }
@@ -69,7 +79,7 @@ public class McCompareParamsItem extends LinearLayout {
         if (childs.isEmpty()) {
             return;
         }
-        removeAllViews();
+        mContainer.removeAllViews();
         mPool.putAll(childs);
         childs.clear();
     }
@@ -77,7 +87,7 @@ public class McCompareParamsItem extends LinearLayout {
 
     public static McCompareParamsItem createForRecyclerView(Context context, McCompareTextPool pool) {
         McCompareParamsItem data = new McCompareParamsItem(context, pool);
-        data.setLayoutParams(new RecyclerView.LayoutParams(McCompareCalculate.DEFAULT_WIDTH, ViewGroup.LayoutParams.WRAP_CONTENT));
+        data.setLayoutParams(new RecyclerView.LayoutParams(McCompareCalculate.DEFAULT_WIDTH, ViewGroup.LayoutParams.MATCH_PARENT));
         return data;
     }
 

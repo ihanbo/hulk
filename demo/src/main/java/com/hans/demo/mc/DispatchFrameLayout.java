@@ -13,7 +13,6 @@ import android.widget.FrameLayout;
 
 public class DispatchFrameLayout extends FrameLayout {
     private int mTouchSlop;
-    ;
 
     private DispatchTouchEventListener mDispatchTouchEventListener;
     private boolean mIsBegainDraging;

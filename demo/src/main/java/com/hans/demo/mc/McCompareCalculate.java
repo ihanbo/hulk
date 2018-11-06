@@ -55,7 +55,7 @@ public class McCompareCalculate {
     }
 
 
-    public static int dP2px(int dp) {
+    public static int dP2px(float dp) {
         return (int) (TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, dp, displayMetrics) + 0.5f);
     }
 
