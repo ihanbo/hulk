@@ -1,0 +1,149 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<resources>
+
+    <color name="mc_darker_gray_font">#888</color>
+    <color name="mc_common_background">#FAFAFA</color>
+
+    <color name="mc_txt_title_color">#FF262626</color>
+    <color name="mc_txt_content_color">#FF2A2A2A</color>
+    <color name="mc_txt_des_color">#FF666666</color>
+    <color name="mc_txt_des_small_color">#FF999999</color>
+
+    <!--口碑生产start-->
+    <color name="mc_black">#000000</color>
+    <color name="mc_white">#FFFFFF</color>
+    <color name="mc_transparent">#00000000</color>
+    <color name="mc_divider">#E5E5E5</color>
+    <color name="mc_prodoce_text">#333333</color>
+    <color name="mc_color_666666">#666666</color>
+    <color name="mc_prodoce_text_select">#999999</color>
+    <color name="mc_produce_ride_exp_text">#565656</color>
+    <color name="mc_produce_line">#29000000</color>
+    <color name="mc_produce_first_line">#1A000000</color>
+    <color name="mc_produce_line_alpha">#0A000000</color>
+    <color name="mc_produce_black_alpha_6">#0F000000</color>
+    <color name="mc_produce_topic">#262626</color>
+    <color name="mc_produce_topic_item">#565656</color>
+    <color name="mc_produce_text_start">#00CCFF</color>
+    <color name="mc_produce_text_end">#003289</color>
+    <color name="mc_produce_pic_start">#FFB1A0</color>
+    <color name="mc_produce_pic_end">#FF7967</color>
+    <color name="mc_produce_next_bg">#3C465A</color>
+    <color name="mc_produce_next_disable_bg">#EFEFEF</color>
+    <color name="mc_produce_select_bg">#3C82FF</color>
+    <color name="mc_produce_satisfied">#FFBF51</color>
+    <color name="mc_produce_edittext_hint">#CCCCCC</color>
+    <color name="mc_produce_bg">#fcfcfc</color>
+    <color name="mc_produce_publish_success_bg">#F6F6F6</color>
+    <color name="mc_produce_80_alpha">#CCFFFFFF</color>
+    <color name="mc_produce_30_alpha">#4DFFFFFF</color>
+    <color name="mc_produce_80_alpha_333333">#CC333333</color>
+    <color name="mc_produce_scene_bg">#F8F8F8</color>
+    <color name="mc_produce_page_num_text">#2A2A2A</color>
+    <color name="mc_invoice_bottom_info">#A2ACC1</color>
+    <color name="mc_produce_car_bg">#66DCE0E5</color>
+    <color name="mc_produce_black_alpha_20">#33000000</color>
+    <color name="mc_color_b6b6b6">#B6B6B6</color>
+    <!--口碑生产end-->
+
+
+    <!--车系详情页start-->
+    <color name="mc_car_title_color">#FF262626</color>
+    <color name="mc_car_frame_bg">#FAFAFA</color>
+    <color name="mc_car_content_bg">#ffffff</color>
+    <color name="mc_car_circle_color">#3C82FF</color>
+    <color name="mc_car_circle_2_color">#53A6F2</color>
+    <color name="mc_car_circle_3_color">#7DD0EF</color>
+    <color name="mc_car_circle_bg_color">#07000000</color>
+    <color name="mc_car_tag_top_color">#19000000</color>
+    <color name="mc_car_shadow_color">#0a000000</color>
+    <color name="mc_ana_shadow_color">#09000000</color>
+    <color name="mc_car_year_select_color">#0E83FF</color>
+    <!--车系详情页end-->
+
+
+    <!--Crop View-->
+    <color name="bar_grey">#393a3e</color>
+    <color name="color_69">#999999</color>
+    <color name="image_overlay_true">#80000000</color>
+    <color name="image_overlay_false">#20000000</color>
+    <color name="line_color">#EEEEEE</color>
+    <color name="transparent_white">#F0FFFFFF</color>
+    <color name="transparent_db">#E0DBDBDB</color>
+
+
+    <!--Feed Start-->
+    <color name="mc_color_ff000000">#FF000000</color>
+    <color name="mc_color_ffbf51">#FFBF51</color>
+    <color name="mc_color_ff5e58">#FF5E58</color>
+    <color name="mc_color_f3f4f5">#f3f4f5</color>
+    <color name="mc_color_bababa">#bababa</color>
+    <color name="mc_color_504a43">#504a43</color>
+    <color name="mc_color_6d67e0">#6d67e0</color>
+    <color name="mc_color_3c82ff">#3c82ff</color>
+    <color name="mc_color_333333">#333333</color>
+    <color name="mc_color_333333_40">#66333333</color>
+    <color name="mc_color_3c465a">#3c465a</color>
+    <color name="mc_color_3c465a_30">#303c465a</color>
+    <color name="mc_color_f54f46">#f54f46</color>
+    <color name="mc_color_ff3b30">#ff3b30</color>
+    <color name="mc_color_3f3f3f">#3f3f3f</color>
+    <color name="mc_color_507daf">#507daf</color>
+    <color name="mc_color_4983f7">#4983f7</color>
+    <color name="mc_color_3b80ff">#3b80ff</color>
+    <color name="mc_color_3b80ff_4">#0F3b80ff</color>
+    <color name="mc_color_999999">#999999</color>
+    <color name="mc_color_dddddd">#dddddd</color>
+    <color name="mc_color_f0f0f0">#f0f0f0</color>
+    <color name="mc_color_f6f7f9">#f6f7f9</color>
+    <color name="mc_color_cccccc">#cccccc</color>
+    <color name="mc_color_cad1de">#cad1de</color>
+    <color name="mc_color_e2e2e2">#e2e2e2</color>
+    <color name="mc_color_70000000">#70000000</color>
+    <color name="mc_color_ff666666">#ff666666</color>
+    <color name="mc_color_f8f8f8">#F8F8F8</color>
+    <color name="mc_color_eaeaea">#eaeaea</color>
+    <color name="mc_color_8097be">#8097be</color>
+    <color name="mc_color_fafbfc">#fafbfc</color>`
+    <color name="mc_color_262626">#262626</color>
+    <color name="mc_color_d8d8d8">#d8d8d8</color>
+    <color name="mc_color_e5e5e5">#e5e5e5</color>
+    <color name="mc_color_f9f9f9">#f9f9f9</color>
+    <color name="mc_color_192132">#192132</color>
+    <color name="mc_color_192132_alpha70">#B3192132</color>
+    <color name="mc_color_667187">#667187</color>
+    <color name="mc_color_a2acc1">#a2acc1</color>
+    <color name="mc_color_a2a2a2a">#2a2a2a</color>
+    <color name="mc_color_alpha4">#0A000000</color>
+    <color name="mc_color_alpha5">#09000000</color>
+    <color name="mc_color_0e83ff">#ff0e83ff</color>
+    <color name="mc_color_200e83ff">#200e83ff</color>
+    <color name="mc_color_4c0e83ff">#4c0e83ff</color>
+    <color name="mc_color_dce0e5">#dce0e5</color>
+    <color name="mc_color_2a2f39">#2a2f39</color>
+    <color name="mc_orange_ff7659">#ff7659</color>
+    <color name="mc_blue_0e84ff">#0E84FF</color>
+    <color name="mc_10_black">#19000000</color>
+    <color name="mc_color_f0f2f3">#f0f2f3</color>
+    <color name="mc_color_7a738b">#7a738b</color>
+    <color name="mc_color_395274">#395274</color>
+    <color name="mc_color_c8cfdd">#c8cfdd</color>
+    <!--Feed End-->
+
+    <color name="mc_search_edit_bg">#F6F7F9</color>
+    <color name="mc_search_line">#FEFEFF</color>
+    <color name="mc_color_ff7659">#ff7659</color>
+    <color name="mc_color_ecf5ff">#ecf5ff</color>
+    <color name="mc_color_4a4c5b">#4a4c5b</color>
+    <color name="mc_color_293C56">#293c56</color>
+    <color name="mc_color_price_list">#3B80FF</color>
+    <color name="mc_color_price_line">#DCE0E5</color>
+    <color name="mc_color_price">#0D0F14</color>
+    <color name="mc_color_price_bg">#ECEEFB</color>
+    <color name="mc_color_293c56">#293C56</color>
+
+    <color name="mc_color_F7F7F7">#F7F7F7</color>
+    <color name="mc_color_ffffff">#ffffff</color>
+
+
+</resources>

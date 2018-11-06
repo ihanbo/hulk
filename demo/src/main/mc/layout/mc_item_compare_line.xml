@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@null">
+
+    <TextView
+        android:id="@+id/tv_key"
+        android:layout_width="@dimen/mc_dimen_85_dip"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical"
+        android:gravity="center" />
+
+    <com.hans.demo.mc.CellsRecyclerView
+        android:id="@+id/rv"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginLeft="@dimen/mc_dimen_85_dip">
+
+    </com.hans.demo.mc.CellsRecyclerView>
+
+    <TextView
+        android:id="@+id/tv_same"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginLeft="@dimen/mc_dimen_85_dip" />
+
+</FrameLayout>

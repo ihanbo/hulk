@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="@dimen/mc_dimen_145_dip"
+    android:layout_height="match_parent"
+    android:background="@null">
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginLeft="@dimen/mc_dimen_5_dip"
+        android:layout_marginTop="@dimen/mc_dimen_8_dip"
+        android:background="@drawable/mc_bg_compare_car_item">
+
+    </FrameLayout>
+
+    <TextView
+        android:id="@+id/tv_car_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:drawableTop="@drawable/mc_ic_compare_top_add_compare"
+        android:textColor="@color/mc_color_667187"
+        android:drawablePadding="@dimen/mc_dimen_5_dip"
+        android:textSize="@dimen/mc_dimen_12_dip"
+        tools:text="添加车型" />
+
+</FrameLayout>

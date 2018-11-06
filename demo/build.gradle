@@ -11,6 +11,9 @@ apply from: 'https://raw.githubusercontent.com/ihanbo/gradleBaseConfig/master/mo
 
 android {
 
+    sourceSets {
+        main.res.srcDirs += ['src/main/mc']
+    }
     defaultConfig {
         javaCompileOptions {
             annotationProcessorOptions {
@@ -25,9 +28,11 @@ android {
 
 dependencies {
     implementation(DEP.ROOM.room)
+    implementation 'com.android.support.constraint:constraint-layout:1.1.3'
     annotationProcessor DEP.ROOM.room_ap
     implementation(DEP.ROOM.room_rx)
 
+    implementation DEP.SUPPORT.recyclerView
     implementation DEP.GLIDE.glide
     annotationProcessor DEP.GLIDE.glide_ap
     implementation DEP.GLIDE.glide_ok
