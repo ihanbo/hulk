@@ -10,7 +10,7 @@ import java.util.List;
  * @author hanbo
  * @date 2018/11/5
  */
-public class McCompareCellsAdapter extends RecyclerView.Adapter<McCompareCellsAdapter.McCompareCellVH> {
+public class McCompareCellsAdapter extends RecyclerView.Adapter<McCompareParamsItemVH> {
 
     public List<List<String>> values;
     private McCompareTextPool mPool;
@@ -25,12 +25,12 @@ public class McCompareCellsAdapter extends RecyclerView.Adapter<McCompareCellsAd
     }
 
     @Override
-    public McCompareCellVH onCreateViewHolder(ViewGroup parent, int viewType) {
-        return new McCompareCellVH(McCompareParamsItem.createForRecyclerView(parent.getContext(), mPool));
+    public McCompareParamsItemVH onCreateViewHolder(ViewGroup parent, int viewType) {
+        return new McCompareParamsItemVH(parent, mPool);
     }
 
     @Override
-    public void onBindViewHolder(McCompareCellVH holder, int position) {
+    public void onBindViewHolder(McCompareParamsItemVH holder, int position) {
         holder.setData(values.get(position), position);
     }
 
@@ -45,7 +45,7 @@ public class McCompareCellsAdapter extends RecyclerView.Adapter<McCompareCellsAd
         notifyItemRangeInserted(0, values.size());
     }
 
-    public static class McCompareCellVH extends RecyclerView.ViewHolder {
+    /*public static class McCompareCellVH extends RecyclerView.ViewHolder {
 
         public McCompareCellVH(View itemView) {
             super(itemView);
@@ -58,6 +58,6 @@ public class McCompareCellsAdapter extends RecyclerView.Adapter<McCompareCellsAd
         public void recycle() {
             ((McCompareParamsItem) itemView).recycleAll();
         }
-    }
+    }*/
 
 }

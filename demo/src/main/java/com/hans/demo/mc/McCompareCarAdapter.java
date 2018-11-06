@@ -14,16 +14,19 @@ import java.util.List;
 
 /**
  * 顶部车型的adapter
+ *
+ * @author hanbo
+ * @date 2018/11/5
  */
 
-public class TitleAdapter extends RecyclerView.Adapter implements A1.OnItemCallbackListener {
+public class McCompareCarAdapter extends RecyclerView.Adapter {
     private List<McCarSummary> mData;
     private IAddCarEvent itemClick;
 
     private final static int TYPE_CAR_INFO = 0;
     private final static int TYPE_ADD_BTN = 1;
 
-    public TitleAdapter(IAddCarEvent l) {
+    public McCompareCarAdapter(IAddCarEvent l) {
         this.itemClick = l;
         mData = new ArrayList<>();
     }
@@ -31,10 +34,7 @@ public class TitleAdapter extends RecyclerView.Adapter implements A1.OnItemCallb
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         if (viewType == TYPE_CAR_INFO) {
-            McCompareCarItem item = new McCompareCarItem(parent.getContext(), itemClick);
-            item.setLayoutParams(new RecyclerView.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.MATCH_PARENT));
-            CarInfoHolder holder = new CarInfoHolder(item);
-            return holder;
+            return new McCompareCarItemVH(parent, itemClick);
         } else {
             View item = LayoutInflater.from(parent.getContext()).inflate(R.layout.mc_item_compare_add_car, parent, false);
             AddCarHolder holder = new AddCarHolder(item, itemClick);
@@ -53,8 +53,8 @@ public class TitleAdapter extends RecyclerView.Adapter implements A1.OnItemCallb
 
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
-        if (holder instanceof CarInfoHolder) {
-            ((CarInfoHolder) holder).bindData(position, mData.get(position));
+        if (holder instanceof McCompareCarItemVH) {
+            ((McCompareCarItemVH) holder).setData(position, mData.get(position));
         } else {
             ((AddCarHolder) holder).bindData(position, mData.get(position));
         }
@@ -70,7 +70,6 @@ public class TitleAdapter extends RecyclerView.Adapter implements A1.OnItemCallb
         notifyDataSetChanged();
     }
 
-    @Override
     public void onMove(int fromPosition, int toPosition) {
         /**
          * 在这里进行给原数组数据的移动
@@ -82,24 +81,9 @@ public class TitleAdapter extends RecyclerView.Adapter implements A1.OnItemCallb
         notifyItemMoved(fromPosition, toPosition);
     }
 
-    @Override
     public void onSwipe(int position) {
     }
 
-
-    private static class CarInfoHolder extends RecyclerView.ViewHolder {
-
-        private McCompareCarItem contentView;
-
-        public CarInfoHolder(View itemView) {
-            super(itemView);
-            contentView = (McCompareCarItem) itemView;
-        }
-
-        public void bindData(int position, McCarSummary carInfo) {
-            contentView.setData(carInfo);
-        }
-    }
 
     private static class AddCarHolder extends RecyclerView.ViewHolder {
 

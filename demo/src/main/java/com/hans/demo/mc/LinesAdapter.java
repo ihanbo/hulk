@@ -12,11 +12,11 @@ import java.util.List;
 public class LinesAdapter extends RecyclerView.Adapter {
 
     private List<McParamsModel.McLineBean> mLines;
-    private CellsScrollHandler mScrollhandler;
+    private McCellsScrollHandler mScrollhandler;
     private McCompareTextPool mPool;
     private RecyclerView.RecycledViewPool mRecycledViewPool;
 
-    public LinesAdapter(Activity activity, CellsScrollHandler scrollhandler) {
+    public LinesAdapter(Activity activity, McCellsScrollHandler scrollhandler) {
         mLines = new ArrayList<>();
         mScrollhandler = scrollhandler;
         mPool = new McCompareTextPool(activity);
@@ -81,7 +81,7 @@ public class LinesAdapter extends RecyclerView.Adapter {
 
         McCarParamsLine mLineView;
 
-        public LineViewHolder(Context context, McCompareTextPool pool, RecyclerView.RecycledViewPool recyclerViewPool, CellsScrollHandler scrollhandler) {
+        public LineViewHolder(Context context, McCompareTextPool pool, RecyclerView.RecycledViewPool recyclerViewPool, McCellsScrollHandler scrollhandler) {
             super(McCarParamsLine.createForRecyclerView(context, pool, recyclerViewPool, scrollhandler));
             mLineView = (McCarParamsLine) itemView;
 

@@ -12,7 +12,7 @@ import android.view.View;
 public class McCompareHeaderRecyclerView extends RecyclerView implements CellsContainer {
     private LinearLayoutManager mLayoutManager;
 
-    private CellsScrollHandler mHandler;
+    private McCellsScrollHandler mHandler;
     private int currentX;
 
     public McCompareHeaderRecyclerView(Context context) {
@@ -44,7 +44,7 @@ public class McCompareHeaderRecyclerView extends RecyclerView implements CellsCo
         return currentX;
     }
 
-    public void setScrollHandler(CellsScrollHandler handler) {
+    public void setScrollHandler(McCellsScrollHandler handler) {
         mHandler = handler;
     }
 

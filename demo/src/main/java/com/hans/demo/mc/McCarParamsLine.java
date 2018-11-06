@@ -2,10 +2,8 @@ package com.hans.demo.mc;
 
 import android.content.Context;
 import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
@@ -27,14 +25,14 @@ public class McCarParamsLine extends FrameLayout {
     protected McCompareCellsAdapter mCellAdapter;
     private McCompareTextPool mPool;
     private RecyclerView.RecycledViewPool mRecyclerViewPool;
-    private CellsScrollHandler mCellsScrollHandler;
+    private McCellsScrollHandler mMcCellsScrollHandler;
 
     public McCarParamsLine(@NonNull Context context, McCompareTextPool pool, RecyclerView.RecycledViewPool recyclerViewPool,
-                           CellsScrollHandler scrollhandler) {
+                           McCellsScrollHandler scrollhandler) {
         super(context);
         mPool = pool;
         mRecyclerViewPool = recyclerViewPool;
-        mCellsScrollHandler = scrollhandler;
+        mMcCellsScrollHandler = scrollhandler;
         init();
 
     }
@@ -44,10 +42,10 @@ public class McCarParamsLine extends FrameLayout {
         mTvKey = (TextView) findViewById(R.id.tv_key);
         mRv = (McCompareHeaderRecyclerView) findViewById(R.id.rv);
         mTvSame = (TextView) findViewById(R.id.tv_same);
-        mRv.addItemDecoration(new ParamView.McComparetemDecoration(false));
+        mRv.addItemDecoration(new McComparetemDecoration(false));
         mRv.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false));
-        mRv.setScrollHandler(mCellsScrollHandler);
-        mCellsScrollHandler.regist(mRv);
+        mRv.setScrollHandler(mMcCellsScrollHandler);
+        mMcCellsScrollHandler.regist(mRv);
         mCellAdapter = new McCompareCellsAdapter(mPool);
         mRv.setAdapter(mCellAdapter);
         mRv.setRecycledViewPool(mRecyclerViewPool);
@@ -83,7 +81,7 @@ public class McCarParamsLine extends FrameLayout {
 
 
     public static McCarParamsLine createForRecyclerView(Context context, McCompareTextPool pool,
-                                                        RecyclerView.RecycledViewPool recyclerViewPool, CellsScrollHandler scrollhandler) {
+                                                        RecyclerView.RecycledViewPool recyclerViewPool, McCellsScrollHandler scrollhandler) {
         McCarParamsLine line = new McCarParamsLine(context, pool, recyclerViewPool, scrollhandler);
         line.setLayoutParams(new RecyclerView.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT,
                 ViewGroup.LayoutParams.MATCH_PARENT));

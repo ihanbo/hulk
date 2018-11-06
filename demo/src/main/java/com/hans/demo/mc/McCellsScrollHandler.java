@@ -4,13 +4,13 @@ import java.util.HashSet;
 import java.util.Set;
 
 
-public class CellsScrollHandler {
+public class McCellsScrollHandler {
 
     private Set<CellsContainer> mCellsContainer;
 
     private int offset, position;
 
-    public CellsScrollHandler() {
+    public McCellsScrollHandler() {
         mCellsContainer = new HashSet<>();
     }
 

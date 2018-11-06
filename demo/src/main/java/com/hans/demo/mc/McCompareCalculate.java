@@ -3,7 +3,6 @@ package com.hans.demo.mc;
 import android.app.Activity;
 import android.app.Application;
 import android.util.DisplayMetrics;
-import android.util.Log;
 import android.util.TypedValue;
 import android.view.View;
 import android.view.ViewGroup;
@@ -30,8 +29,8 @@ public class McCompareCalculate {
 
 
     private TextView mKey;              //计算key的高度
-    private McCompareParamsItem item;   //参数单元格
-    private McCompareCarItem carItem;   //顶部车型的条目
+    private McCompareParamsItemVH paramsItem;   //参数单元格
+    private McCompareCarItemVH carItem;   //顶部车型的条目
 
     private static int keyWidthMeasureSpec = View.MeasureSpec.makeMeasureSpec(KEY_WIDTH, View.MeasureSpec.EXACTLY);         //键的宽度测量spec
     private static int paramsWidthMeasureSpec = View.MeasureSpec.makeMeasureSpec(DEFAULT_WIDTH, View.MeasureSpec.EXACTLY);  //参数单元格的宽度测量spec
@@ -45,12 +44,12 @@ public class McCompareCalculate {
         mKey.setTextSize(12,TypedValue.COMPLEX_UNIT_DIP);
         mKey.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
 
-        item = new McCompareParamsItem(getApp(), new McCompareTextPool(activity));
-        item.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
+        paramsItem = new McCompareParamsItemVH(new LinearLayout(getApp()), new McCompareTextPool(activity));
+        paramsItem.getItemView().setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
 
 
-        carItem = new McCompareCarItem(getApp());
-        carItem.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
+        carItem = new McCompareCarItemVH(new LinearLayout(getApp()),null);
+        carItem.getItemView().setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
 
     }
 
@@ -78,15 +77,15 @@ public class McCompareCalculate {
             return height;
         }
 
-        item.recycleAll();
+        paramsItem.recycleAll();
         for (int i = 0, len = datas.size(); i < len; i++) {
-            item.setData(datas.get(i), -1);
-            item.measure(paramsWidthMeasureSpec, atMostMeasureSpec);
-            int i1 = item.getMeasuredHeight();
+            paramsItem.setData(datas.get(i), -1);
+            paramsItem.getItemView().measure(paramsWidthMeasureSpec, atMostMeasureSpec);
+            int i1 = paramsItem.getItemView().getMeasuredHeight();
             if (i1 > height) {
                 height = i1;
             }
-            item.recycleAll();
+            paramsItem.recycleAll();
         }
         return height;
     }
@@ -100,9 +99,9 @@ public class McCompareCalculate {
 
         int height = 0;
         for (int i = 0, len = datas.size(); i < len; i++) {
-            carItem.setData(datas.get(i));
-            item.measure(paramsWidthMeasureSpec, atMostMeasureSpec);
-            int tempHeight = item.getMeasuredHeight();
+            carItem.setData(-1, datas.get(i));
+            carItem.getItemView().measure(paramsWidthMeasureSpec, atMostMeasureSpec);
+            int tempHeight = carItem.getItemView().getMeasuredHeight();
             if (tempHeight > height) {
                 height = tempHeight;
             }
@@ -110,7 +109,6 @@ public class McCompareCalculate {
         if (height == 0) {
             height = DEFAULT_HEIGHT;
         }
-        long end = System.currentTimeMillis();
         return height;
     }
 
