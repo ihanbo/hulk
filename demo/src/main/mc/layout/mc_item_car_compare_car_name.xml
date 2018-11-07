@@ -9,7 +9,6 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_marginTop="@dimen/mc_dimen_8_dip"
-        android:layout_marginLeft="@dimen/mc_dimen_5_dip"
         android:background="@drawable/mc_bg_compare_car_item">
 
     </FrameLayout>

@@ -2,7 +2,6 @@ package com.hans.demo.mc;
 
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -52,6 +51,7 @@ public class McCarParamsLineVH extends RecyclerView.ViewHolder {
         mRv = (McCompareHeaderRecyclerView) itemView.findViewById(R.id.rv);
         mTvSame = (TextView) itemView.findViewById(R.id.tv_same);
         mRv.addItemDecoration(new McComparetemDecoration(false));
+        mRv.addItemDecoration(new ParamView.McStartEndMarginDecoration());
         mRv.setLayoutManager(new LinearLayoutManager(itemView.getContext(), LinearLayoutManager.HORIZONTAL, false));
         mRv.setScrollHandler(mMcCellsScrollHandler);
         mMcCellsScrollHandler.regist(mRv);
@@ -76,32 +76,38 @@ public class McCarParamsLineVH extends RecyclerView.ViewHolder {
         } else {
             mRv.setVisibility(GONE);
             mTvSame.setVisibility(VISIBLE);
-            if (lineData.values != null && !lineData.values.isEmpty()
-                    && lineData.values.get(0) != null && !lineData.values.get(0).isEmpty()) {
-
-                List<String> strings = lineData.values.get(0);
-                int len = strings.size();
-
-                if (len == 1) {
-                    mTvSame.setText(strings.get(0));
-                } else {
-                    StringBuilder sb = new StringBuilder();
-                    for (int i = 0, size = strings.size(); i < size; i++) {
-                        sb.append(strings.get(i));
-                        if (i != size - 1) {
-                            sb.append("\n");
-                        }
-                    }
-                    mTvSame.setText(sb);
-                }
-            } else {
-                mTvSame.setText("");
-            }
+            mTvSame.setText(getSameText(lineData));
         }
         if (lineData.measureHeight > 0) {
             ViewGroup.LayoutParams layoutParams = itemView.getLayoutParams();
             layoutParams.height = lineData.measureHeight;
             itemView.setLayoutParams(layoutParams);
+        }
+    }
+
+
+    //获取合并后的一行内容
+    public String getSameText(McParamsModel.McLineBean lineData) {
+        if (lineData.values != null && !lineData.values.isEmpty()
+                && lineData.values.get(0) != null && !lineData.values.get(0).isEmpty()) {
+
+            List<String> strings = lineData.values.get(0);
+            int len = strings.size();
+
+            if (len == 1) {
+                return strings.get(0);
+            } else {
+                StringBuilder sb = new StringBuilder();
+                for (int i = 0, size = strings.size(); i < size; i++) {
+                    sb.append(strings.get(i));
+                    if (i != size - 1) {
+                        sb.append("\n");
+                    }
+                }
+                return sb.toString();
+            }
+        } else {
+            return "";
         }
     }
 

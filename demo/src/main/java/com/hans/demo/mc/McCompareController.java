@@ -150,7 +150,7 @@ public class McCompareController {
         mCurrentHeads = mHideSame ? mNoSameHeads : mFullHeads2;
 
 
-        mView.setData(data.model_infos, mCurrentData, mCurrentHeads);
+        mView.setData(data.model_infos, mCurrentData, mCurrentHeads, carMostHeight);
     }
 
     public void jumpTo(McParamsModel data, int pos) {

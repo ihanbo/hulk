@@ -8,7 +8,6 @@
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginLeft="@dimen/mc_dimen_5_dip"
         android:layout_marginTop="@dimen/mc_dimen_8_dip"
         android:background="@drawable/mc_bg_compare_car_item">
 
@@ -23,6 +22,6 @@
         android:textColor="@color/mc_color_667187"
         android:drawablePadding="@dimen/mc_dimen_5_dip"
         android:textSize="@dimen/mc_dimen_12_dip"
-        tools:text="添加车型" />
+        android:text="添加车型" />
 
 </FrameLayout>

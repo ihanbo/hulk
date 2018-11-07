@@ -2,11 +2,16 @@ package com.hans.demo.mc;
 
 
 import android.app.Activity;
+import android.graphics.Canvas;
+import android.graphics.Color;
+import android.graphics.Paint;
+import android.graphics.Rect;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.helper.ItemTouchHelper;
 import android.util.SparseArray;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.CheckBox;
 import android.widget.FrameLayout;
 import android.widget.GridView;
@@ -89,6 +94,7 @@ public class ParamView implements View.OnClickListener {
         topCarFrame = view.findViewById(R.id.top_line);
         mHeaderContentView = (McCompareHeaderRecyclerView) view.findViewById(R.id.rv_car);
         mHeaderContentView.setLayoutManager(new LinearLayoutManager(mActivity, LinearLayoutManager.HORIZONTAL, false));
+        mHeaderContentView.addItemDecoration(new McStartEndMarginDecoration());
         mHeaderContentView.setScrollHandler(mScrollHandler);
         mScrollHandler.regist(mHeaderContentView);
         if (mCarAdapter == null) {
@@ -125,15 +131,19 @@ public class ParamView implements View.OnClickListener {
 
 
     /**
-     * @param model_infos 车型数据
-     * @param lines       参数数据
-     * @param heads       吸顶头部数据
+     * @param model_infos   车型数据
+     * @param lines         参数数据
+     * @param heads         吸顶头部数据
+     * @param carMostHeight 车型栏的测量高度
      */
     public void setData(List<McCarSummary> model_infos, List<McParamsModel.McLineBean> lines,
-                        SparseArray<McParamsModel> heads) {
+                        SparseArray<McParamsModel> heads, int carMostHeight) {
         mCarAdapter.setData(model_infos);
         mParamsAdapter.setData(lines, heads);
         mMenuAdapter.setData(heads);
+        ViewGroup.LayoutParams layoutParams = topCarFrame.getLayoutParams();
+        layoutParams.height = carMostHeight;
+        topCarFrame.setLayoutParams(layoutParams);
     }
 
     /**
@@ -217,6 +227,27 @@ public class ParamView implements View.OnClickListener {
 
         @Override
         public void onSwiped(RecyclerView.ViewHolder viewHolder, int direction) {
+
+        }
+    }
+
+
+    public static class McStartEndMarginDecoration extends RecyclerView.ItemDecoration {
+
+        @Override
+        public void getItemOffsets(Rect outRect, View view, RecyclerView
+                parent, RecyclerView.State state) {
+
+            //如果不是第一个，则设置top的值。
+            int pos = parent.getChildAdapterPosition(view);
+            if (pos == 0) {
+                //这里直接硬编码为1px
+                outRect.left = McCompareCalculate.dP2px(10);
+            } else if (parent.getChildAdapterPosition(view) == parent.getAdapter().getItemCount() - 1) {
+                outRect.right = McCompareCalculate.dP2px(10);
+            } else {
+                super.getItemOffsets(outRect, view, parent, state);
+            }
 
         }
     }
