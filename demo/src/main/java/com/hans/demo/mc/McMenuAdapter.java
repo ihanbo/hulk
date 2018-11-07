@@ -35,6 +35,7 @@ public class McMenuAdapter extends BaseAdapter {
                 mSelectPos = pos;
                 notifyDataSetChanged();
                 if (callBack != null) {
+                    callBack.dismissMenu();
                     callBack.select(data, pos);
                 }
             }

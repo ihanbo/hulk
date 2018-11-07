@@ -101,13 +101,20 @@
         android:layout_below="@+id/top_line"
         android:background="@null">
 
-
-        <android.support.v7.widget.RecyclerView
-            android:id="@+id/rv_params"
+        <com.hans.demo.mc.DispatchFrameLayout
+            android:id="@+id/df_frame"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:background="@null">
 
-        </android.support.v7.widget.RecyclerView>
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/rv_params"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+            </android.support.v7.widget.RecyclerView>
+        </com.hans.demo.mc.DispatchFrameLayout>
+
 
     </FrameLayout>
 

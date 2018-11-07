@@ -18,13 +18,13 @@
         android:layout_marginLeft="@dimen/mc_dimen_85_dip"
         android:background="@color/mc_10_black" />
 
-    <com.hans.demo.mc.McCompareHeaderRecyclerView
+    <com.hans.demo.mc.CellsRecyclerView
         android:id="@+id/rv"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_marginLeft="@dimen/mc_dimen_85_dip">
 
-    </com.hans.demo.mc.McCompareHeaderRecyclerView>
+    </com.hans.demo.mc.CellsRecyclerView>
 
     <TextView
         android:id="@+id/tv_same"

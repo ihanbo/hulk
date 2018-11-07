@@ -2,14 +2,12 @@ package com.hans.demo.mc;
 
 
 import android.app.Activity;
-import android.graphics.Canvas;
-import android.graphics.Color;
-import android.graphics.Paint;
 import android.graphics.Rect;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.helper.ItemTouchHelper;
 import android.util.SparseArray;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CheckBox;
@@ -40,6 +38,8 @@ public class ParamView implements View.OnClickListener {
     private CheckBox mHideSame;                                 //隐藏相同
     private McCompareHeaderRecyclerView mHeaderContentView;     //车型的recyclerview
 
+
+    private DispatchFrameLayout mListParent;                    //分发事件的父容器
     private RecyclerView mParamsView;                          //下面参数的纵向适配器
 
 
@@ -117,6 +117,16 @@ public class ParamView implements View.OnClickListener {
         ItemTouchHelper helper = new ItemTouchHelper(new McDragCallBack(mCarAdapter));
         helper.attachToRecyclerView(mHeaderContentView);
 
+
+        //事件分发
+        mListParent = (DispatchFrameLayout) view.findViewById(R.id.df_frame);
+        mListParent.setDispatchTouchEventListener(new DispatchFrameLayout.DispatchTouchEventListener() {
+            @Override
+            public boolean dispatchTouchEvent(MotionEvent ev) {
+                mHeaderContentView.onFakeTouchEvent(ev);
+                return true;
+            }
+        });
 
         //参数
         mParamsView = (RecyclerView) view.findViewById(R.id.rv_params);
@@ -232,6 +242,7 @@ public class ParamView implements View.OnClickListener {
     }
 
 
+    //设置margin
     public static class McStartEndMarginDecoration extends RecyclerView.ItemDecoration {
 
         @Override

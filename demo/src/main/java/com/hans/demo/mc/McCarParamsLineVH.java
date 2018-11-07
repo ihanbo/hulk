@@ -22,7 +22,7 @@ import static android.view.View.VISIBLE;
  */
 public class McCarParamsLineVH extends RecyclerView.ViewHolder {
     private TextView mTvKey;
-    private McCompareHeaderRecyclerView mRv;
+    private CellsRecyclerView mRv;
     private TextView mTvSame;
 
     protected McCompareCellsAdapter mCellAdapter;
@@ -48,12 +48,11 @@ public class McCarParamsLineVH extends RecyclerView.ViewHolder {
 
     private void init() {
         mTvKey = (TextView) itemView.findViewById(R.id.tv_key);
-        mRv = (McCompareHeaderRecyclerView) itemView.findViewById(R.id.rv);
+        mRv = (CellsRecyclerView) itemView.findViewById(R.id.rv);
         mTvSame = (TextView) itemView.findViewById(R.id.tv_same);
         mRv.addItemDecoration(new McComparetemDecoration(false));
         mRv.addItemDecoration(new ParamView.McStartEndMarginDecoration());
         mRv.setLayoutManager(new LinearLayoutManager(itemView.getContext(), LinearLayoutManager.HORIZONTAL, false));
-        mRv.setScrollHandler(mMcCellsScrollHandler);
         mMcCellsScrollHandler.regist(mRv);
         mCellAdapter = new McCompareCellsAdapter(mPool);
         mRv.setAdapter(mCellAdapter);

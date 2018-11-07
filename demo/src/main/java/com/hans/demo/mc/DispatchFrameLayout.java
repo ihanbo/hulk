@@ -2,6 +2,7 @@ package com.hans.demo.mc;
 
 import android.content.Context;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.MotionEvent;
 import android.view.ViewConfiguration;
 import android.widget.FrameLayout;
@@ -14,7 +15,12 @@ import android.widget.FrameLayout;
 public class DispatchFrameLayout extends FrameLayout {
     private int mTouchSlop;
 
-    private DispatchTouchEventListener mDispatchTouchEventListener;
+    private DispatchTouchEventListener mDispatchTouchEventListener = new DispatchTouchEventListener() {
+        @Override
+        public boolean dispatchTouchEvent(MotionEvent ev) {
+            return true;
+        }
+    };
     private boolean mIsBegainDraging;
 
     public DispatchFrameLayout(Context context) {
@@ -38,6 +44,11 @@ public class DispatchFrameLayout extends FrameLayout {
         mTouchSlop = configuration.getScaledTouchSlop();
     }
 
+
+    @Override
+    public void requestDisallowInterceptTouchEvent(boolean disallowIntercept) {
+    }
+
     int mOldX;
     int mOldY;
 
@@ -47,53 +58,60 @@ public class DispatchFrameLayout extends FrameLayout {
     @Override
     public boolean dispatchTouchEvent(MotionEvent ev) {
         boolean result;
-        if (mDispatchTouchEventListener != null) {
-            int x = (int) ev.getX();
-            int y = (int) ev.getY();
-            if (ev.getAction() == MotionEvent.ACTION_DOWN) {
-                mOldX = x;
-                mOldY = y;
-                hasProcessIng = false;
-                mDispatchTouchEventListener.dispatchTouchEvent(ev);
-                result = super.dispatchTouchEvent(ev);
-            } else if (ev.getAction() == MotionEvent.ACTION_MOVE) {
-                if (hasProcessIng) {
-                    if (customProcess) {
-                        result = mDispatchTouchEventListener.dispatchTouchEvent(ev);
-                    } else {
-                        result = super.dispatchTouchEvent(ev);
-                    }
-                } else {
-                    int deltaX = x - mOldX;
-                    int deltaY = y - mOldY;
-                    customProcess = Math.abs(deltaX) > mTouchSlop && Math.abs(deltaX) > Math.abs(deltaY);
-                    hasProcessIng = true;
-                    int action = ev.getAction();
-                    if (customProcess) {
-                        ev.setAction(MotionEvent.ACTION_CANCEL);
-                        super.dispatchTouchEvent(ev);
-                        ev.setAction(action);
-                        result = mDispatchTouchEventListener.dispatchTouchEvent(ev);
-                    } else {
-                        ev.setAction(MotionEvent.ACTION_CANCEL);
-                        mDispatchTouchEventListener.dispatchTouchEvent(ev);
-                        ev.setAction(action);
-                        result = super.dispatchTouchEvent(ev);
-                    }
-                }
-            } else if (ev.getAction() == MotionEvent.ACTION_UP || ev.getAction() == MotionEvent.ACTION_CANCEL) {
-                hasProcessIng = false;
-                mDispatchTouchEventListener.dispatchTouchEvent(ev);
-                result = super.dispatchTouchEvent(ev);
-            } else {
-                result = super.dispatchTouchEvent(ev);
-            }
+        int x = (int) ev.getX();
+        int y = (int) ev.getY();
+
+        if (ev.getAction() == MotionEvent.ACTION_DOWN) {
             mOldX = x;
             mOldY = y;
+            hasProcessIng = false;
+            mDispatchTouchEventListener.dispatchTouchEvent(ev);
+            result = super.dispatchTouchEvent(ev);
+        } else if (ev.getAction() == MotionEvent.ACTION_MOVE) {
+            if (hasProcessIng) {
+                if (customProcess) {
+                    result = mDispatchTouchEventListener.dispatchTouchEvent(ev);
+                } else {
+                    result = super.dispatchTouchEvent(ev);
+                }
+            } else {
+                int deltaX = x - mOldX;
+                int deltaY = y - mOldY;
+                int abx = Math.abs(deltaX);
+                int aby = Math.abs(deltaY);
+                if (abx < mTouchSlop && aby < mTouchSlop) {
+                    return true;
+                }
+
+                customProcess = abx > mTouchSlop && abx > Math.abs(deltaY);
+                Log.i("hh", "DispatchFrameLayout  : dispatchTouchEvent: oldx:" + mOldX + " oldy:" + mOldY + " x:" + x + " y:" + y
+                        + " deltaX:" + deltaX + " deltaY:" + deltaY + "" + customProcess);
+                hasProcessIng = true;
+                int action = ev.getAction();
+                if (customProcess) {
+                    ev.setAction(MotionEvent.ACTION_CANCEL);
+                    super.dispatchTouchEvent(ev);
+                    ev.setAction(action);
+                    result = mDispatchTouchEventListener.dispatchTouchEvent(ev);
+                } else {
+                    ev.setAction(MotionEvent.ACTION_CANCEL);
+                    mDispatchTouchEventListener.dispatchTouchEvent(ev);
+                    ev.setAction(action);
+                    result = super.dispatchTouchEvent(ev);
+                }
+            }
+        } else if (ev.getAction() == MotionEvent.ACTION_UP || ev.getAction() == MotionEvent.ACTION_CANCEL) {
+            hasProcessIng = false;
+            mDispatchTouchEventListener.dispatchTouchEvent(ev);
+            result = super.dispatchTouchEvent(ev);
         } else {
+            Log.i("hh", "DispatchFrameLayout  : dispatchTouchEvent: else");
             result = super.dispatchTouchEvent(ev);
         }
-        return result;
+
+        mOldX = x;
+        mOldY = y;
+        return true;
     }
 
 
