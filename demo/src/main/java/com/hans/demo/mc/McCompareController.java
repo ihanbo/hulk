@@ -7,7 +7,6 @@ import android.util.SparseArray;
 
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.Iterator;
 import java.util.List;
 
 /**
@@ -40,13 +39,25 @@ public class McCompareController {
 
     //添加车型
     public void addCar() {
-
+        //TODO 加车
     }
 
+    private boolean mHideSame = false;
+
     public void hideSameTo(boolean checked) {
-        if(checked){
-            mView.getParamsAdapter().setData();
+        if (mHideSame == checked) {
+            return;
         }
+        mHideSame = checked;
+        if (checked) {
+            mCurrentData = mNoSameData;
+            mCurrentHeads = mNoSameHeads;
+        } else {
+            mCurrentData = mFullData2;
+            mCurrentHeads = mFullHeads2;
+        }
+
+        mView.setDataWithoutCar(mCurrentData, mCurrentHeads);
 
     }
 
@@ -61,13 +72,17 @@ public class McCompareController {
      * 4 行22
      * 4          块2    1
      */
-    private SparseArray<McParamsModel> mFullHeads;
-    private McCarCompareModel mData;
-    private List<McParamsModel.McLineBean> mFullData;
-    private List<McParamsModel.McLineBean> linesNoSame;
+    private SparseArray<McParamsModel> mCurrentHeads;
+    private List<McParamsModel.McLineBean> mCurrentData;
+
+    private SparseArray<McParamsModel> mFullHeads2;
+    private List<McParamsModel.McLineBean> mFullData2;
+
+    private List<McParamsModel.McLineBean> mNoSameData;
+    private SparseArray<McParamsModel> mNoSameHeads;
 
     private final List COMMON_EMPTY = Collections.EMPTY_LIST;
-
+    private McCarCompareModel mData;
 
     public void setData(McCarCompareModel data) {
         if (data == null || data.configurations == null || data.configurations.isEmpty()
@@ -84,74 +99,78 @@ public class McCompareController {
             data.model_infos.add(new McCarSummary.McAddCar());
         }
 
-        mFullData = new ArrayList<>(128);
-        mFullHeads = new SparseArray<>(32);
+        mFullData2 = new ArrayList<>(128);
+        mFullHeads2 = new SparseArray<>(32);
 
-        //合并块的数据
-        for (int i = 0, len = data.configurations.size(); i < len; i++) {
-            McParamsModel mcParamsModel = data.configurations.get(i);
-            if (mcParamsModel != null && mcParamsModel.items != null) {
-                mFullData.addAll(mcParamsModel.items);
-            }
-            mFullHeads.put(mFullData.size() - 1, mcParamsModel);
-        }
-
-
-        linesNoSame = new ArrayList<>(mFullData.size());
+        mNoSameHeads = new SparseArray<>(32);
+        mNoSameData = new ArrayList<>(mFullData2.size());
 
 
         /*
-         * 处理行数据
-         * 1.移除无效数据
-         * 2.计算行高
-         * 3.按需添加行末空项（添加车型）
-         * 4.过滤出不相同的项
+         * 合并块的数据
+         * 1.块非空，且有数据
+         * 3.生成全量数据
+         * 3.生成非相同列表
          * */
-        for (Iterator<McParamsModel.McLineBean> iterator = mFullData.iterator(); iterator.hasNext(); ) {
-            McParamsModel.McLineBean lineBean = iterator.next();
+        for (int i = 0, len = data.configurations.size(); i < len; i++) {
+            McParamsModel mcParamsModel = data.configurations.get(i);
+            if (mcParamsModel != null && mcParamsModel.items != null) {
+                mFullData2.addAll(mcParamsModel.items);
+                mFullHeads2.put(mFullData2.size() - 1, mcParamsModel);
 
-            boolean same = lineBean.isSame();
-            if (lineBean.values == null && !same) {
-                iterator.remove();
-                continue;
+                List<McParamsModel.McLineBean> noSame = mcParamsModel.getNoSame();
+                if (noSame != null && !noSame.isEmpty()) {
+                    mNoSameData.addAll(noSame);
+                    mNoSameHeads.put(mNoSameData.size() - 1, mcParamsModel);
+                }
             }
+        }
 
+        /*
+         * 处理行数据
+         * 1.计算行高
+         * 3.按需添加行末空项（添加车型）
+         * */
+        for (int i = 0; i < mFullData2.size(); i++) {
+            McParamsModel.McLineBean lineBean = mFullData2.get(i);
             mCalculate.preMeasureLineHeight(lineBean);
 
             if (lineBean.values != null && neeadAddExtra) {
                 lineBean.values.add(COMMON_EMPTY);
             }
-
-            if (!same) {
-                linesNoSame.add(lineBean);
-            }
         }
+
 
         int carMostHeight = mCalculate.preMeasureCarHeight(data.model_infos);
 
         long end = System.currentTimeMillis();
         Log.i("hh", "McCompareController  : setData: cost: " + (end - start));
-        mView.setData(data.model_infos, mFullData, mFullHeads, data.configurations);
+
+        mCurrentData = mHideSame ? mNoSameData : mFullData2;
+        mCurrentHeads = mHideSame ? mNoSameHeads : mFullHeads2;
+
+
+        mView.setData(data.model_infos, mCurrentData, mCurrentHeads);
     }
 
     public void jumpTo(McParamsModel data, int pos) {
         if (pos == 0) {
             mView.scrollTo(0);
         } else {
-            mView.scrollTo(mFullHeads.keyAt(pos - 1) + 1);
+            mView.scrollTo(mCurrentHeads.keyAt(pos - 1) + 1);
         }
     }
 
 
     public void openMenu() {
-        if (mFullHeads == null || mFullHeads.size() == 0) {
+        if (mCurrentHeads == null || mCurrentHeads.size() == 0) {
             mView.showMenu(0);
             return;
         }
         LinearLayoutManager layoutManager = (LinearLayoutManager) mView.getParamsView().getLayoutManager();
         if (layoutManager != null) {
             int pos = layoutManager.findFirstVisibleItemPosition();
-            int index = mFullHeads.indexOfKey(pos);
+            int index = mCurrentHeads.indexOfKey(pos);
             if (index < 0) {
                 index = ~index;
             }

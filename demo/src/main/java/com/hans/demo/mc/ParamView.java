@@ -38,11 +38,11 @@ public class ParamView implements View.OnClickListener {
     private RecyclerView mParamsView;                          //下面参数的纵向适配器
 
 
-    private LinesAdapter mParamsAdapter;                      //内容的纵向适配器
-    private McCompareCarAdapter mCarAdapter;                 //车型的适配器
+    private LinesAdapter mParamsAdapter;                        //内容的纵向适配器
+    private McCompareCarAdapter mCarAdapter;                    //车型的适配器
     private McMenuAdapter mMenuAdapter;
 
-    private McCellsScrollHandler mScrollHandler;          //控制参数条目跟随滑动
+    private McCellsScrollHandler mScrollHandler;                //控制参数条目跟随滑动
 
     private Activity mActivity;
     private McCompareController mController;
@@ -89,6 +89,7 @@ public class ParamView implements View.OnClickListener {
         topCarFrame = view.findViewById(R.id.top_line);
         mHeaderContentView = (McCompareHeaderRecyclerView) view.findViewById(R.id.rv_car);
         mHeaderContentView.setLayoutManager(new LinearLayoutManager(mActivity, LinearLayoutManager.HORIZONTAL, false));
+        mHeaderContentView.setScrollHandler(mScrollHandler);
         mScrollHandler.regist(mHeaderContentView);
         if (mCarAdapter == null) {
             mCarAdapter = new McCompareCarAdapter(new McCompareCarAdapter.IAddCarEvent() {
@@ -124,16 +125,24 @@ public class ParamView implements View.OnClickListener {
 
 
     /**
-     * @param model_infos    车型数据
-     * @param lines          参数数据
-     * @param heads          吸顶头部数据
-     * @param configurations 菜单数据
+     * @param model_infos 车型数据
+     * @param lines       参数数据
+     * @param heads       吸顶头部数据
      */
     public void setData(List<McCarSummary> model_infos, List<McParamsModel.McLineBean> lines,
-                        SparseArray<McParamsModel> heads, List<McParamsModel> configurations) {
+                        SparseArray<McParamsModel> heads) {
         mCarAdapter.setData(model_infos);
         mParamsAdapter.setData(lines, heads);
-        mMenuAdapter.setData(configurations);
+        mMenuAdapter.setData(heads);
+    }
+
+    /**
+     * @param lines 参数数据
+     * @param heads 吸顶头部数据
+     */
+    public void setDataWithoutCar(List<McParamsModel.McLineBean> lines, SparseArray<McParamsModel> heads) {
+        mParamsAdapter.setData(lines, heads);
+        mMenuAdapter.setData(heads);
     }
 
     public void recycle() {

@@ -4,6 +4,7 @@ import android.content.Context;
 import android.graphics.Color;
 import android.os.Handler;
 import android.support.annotation.NonNull;
+import android.util.SparseArray;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -22,11 +23,11 @@ import java.util.List;
  * @date 2018/11/7
  */
 public class McMenuAdapter extends BaseAdapter {
-    private List<McParamsModel> items;
+    private SparseArray<McParamsModel> items;
     private FilterCallBack mCallBack;
     private int mSelectPos = 0;
 
-    public McMenuAdapter(List<McParamsModel> items, final FilterCallBack callBack) {
+    public McMenuAdapter(SparseArray<McParamsModel> items, final FilterCallBack callBack) {
         this.items = items;
         mCallBack = new FilterCallBack() {
             @Override
@@ -47,7 +48,7 @@ public class McMenuAdapter extends BaseAdapter {
         };
     }
 
-    public void setData(final List<McParamsModel> configurations) {
+    public void setData(final SparseArray<McParamsModel> configurations) {
         items = configurations;
         notifyDataSetChanged();
     }
@@ -61,10 +62,10 @@ public class McMenuAdapter extends BaseAdapter {
 
     @Override
     public McParamsModel getItem(int position) {
-        if (items == null || items.isEmpty() || position >= items.size() || position < 0) {
+        if (items == null || items.size() == 0 || position >= items.size() || position < 0) {
             return null;
         }
-        return items.get(position);
+        return items.valueAt(position);
     }
 
 

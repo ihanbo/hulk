@@ -3,6 +3,7 @@ package com.hans.demo.mc;
 import android.text.TextUtils;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -47,4 +48,19 @@ public class McParamsModel {
             return !TextUtils.isEmpty(colspan);
         }
     }
+
+    public List<McLineBean> getNoSame() {
+        if (items == null || items.isEmpty()) {
+            return null;
+        }
+        List<McLineBean> noSame = new ArrayList<>(items.size());
+        for (int i = 0, len = items.size(); i < len; i++) {
+            McLineBean mcLineBean = items.get(i);
+            if (!mcLineBean.isSame()) {
+                noSame.add(mcLineBean);
+            }
+        }
+        return noSame;
+    }
+
 }
