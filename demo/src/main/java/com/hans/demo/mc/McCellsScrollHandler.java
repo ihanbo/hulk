@@ -1,10 +1,14 @@
 package com.hans.demo.mc;
 
+import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.RecyclerView.OnScrollListener;
+import android.view.MotionEvent;
+
 import java.util.HashSet;
 import java.util.Set;
 
 
-public class McCellsScrollHandler {
+public class McCellsScrollHandler extends OnScrollListener {
 
     private Set<CellsContainer> mCellsContainer;
 
@@ -27,11 +31,9 @@ public class McCellsScrollHandler {
         mCellsContainer.clear();
     }
 
-    public void notifyScrollTo(int offset, int position, CellsContainer self) {
+    public void notifyScrollTo(int offset, int position) {
         for (CellsContainer item : mCellsContainer) {
-            if (item != self) {
-                item.dealScrollTo(offset, position);
-            }
+            item.dealScrollTo(offset, position);
         }
     }
 
@@ -39,5 +41,18 @@ public class McCellsScrollHandler {
         this.offset = offset;
         this.position = position;
 
+    }
+
+    public boolean onTouchEvent(MotionEvent e) {
+        if (mHeaderRecyclerView != null) {
+            mHeaderRecyclerView.dispatchTouchEvent(e);
+        }
+        return true;
+    }
+
+    McCompareHeaderRecyclerView mHeaderRecyclerView;
+
+    public void setTouchEventRecieve(McCompareHeaderRecyclerView mcCompareHeaderRecyclerView) {
+        mHeaderRecyclerView = mcCompareHeaderRecyclerView;
     }
 }

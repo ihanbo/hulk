@@ -57,8 +57,11 @@ public class CellsRecyclerView extends RecyclerView implements CellsContainer {
     }
 
 
-    @Override
-    public boolean onTouchEvent(MotionEvent e) {
-        return true;
+
+    McCellsScrollHandler mScrollHandler;
+
+    public void setEventDispatch(McCellsScrollHandler mcCellsScrollHandler) {
+        mScrollHandler = mcCellsScrollHandler;
+        addOnScrollListener(mcCellsScrollHandler);
     }
 }

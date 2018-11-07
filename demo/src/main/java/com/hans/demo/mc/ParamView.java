@@ -23,11 +23,6 @@ import com.timehop.stickyheadersrecyclerview.StickyRecyclerHeadersDecoration;
 import java.util.List;
 
 
-/**
- * Created by sudi on 2017/10/20.
- * Email：sudi@yiche.com
- */
-
 public class ParamView implements View.OnClickListener {
 
 
@@ -96,7 +91,6 @@ public class ParamView implements View.OnClickListener {
         mHeaderContentView.setLayoutManager(new LinearLayoutManager(mActivity, LinearLayoutManager.HORIZONTAL, false));
         mHeaderContentView.addItemDecoration(new McStartEndMarginDecoration());
         mHeaderContentView.setScrollHandler(mScrollHandler);
-        mScrollHandler.regist(mHeaderContentView);
         if (mCarAdapter == null) {
             mCarAdapter = new McCompareCarAdapter(new McCompareCarAdapter.IAddCarEvent() {
                 @Override
@@ -251,4 +245,8 @@ public class ParamView implements View.OnClickListener {
 
         }
     }
+
+
+
+
 }
