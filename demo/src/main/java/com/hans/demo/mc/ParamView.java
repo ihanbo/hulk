@@ -172,6 +172,10 @@ public class ParamView implements View.OnClickListener {
         mMenuFrame.setVisibility(mMenuFrame.isShown() ? View.GONE : View.VISIBLE);
     }
 
+    public LinesAdapter getParamsAdapter() {
+        return mParamsAdapter;
+    }
+
 
     //拖拽的处理
     static class McDragCallBack extends ItemTouchHelper.Callback {

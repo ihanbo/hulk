@@ -69,7 +69,7 @@ public class McCarParamsLineVH extends RecyclerView.ViewHolder {
 
     public void setData(int position, McParamsModel.McLineBean lineData) {
         mTvKey.setText(lineData.name);
-        if (TextUtils.isEmpty(lineData.colspan)) {
+        if (!lineData.isSame()) {
             mRv.setVisibility(VISIBLE);
             mTvSame.setVisibility(GONE);
             mCellAdapter.setData(lineData.values);
@@ -94,11 +94,13 @@ public class McCarParamsLineVH extends RecyclerView.ViewHolder {
                     }
                     mTvSame.setText(sb);
                 }
+            } else {
+                mTvSame.setText("");
             }
         }
-        if (lineData.height > 0) {
+        if (lineData.measureHeight > 0) {
             ViewGroup.LayoutParams layoutParams = itemView.getLayoutParams();
-            layoutParams.height = lineData.height;
+            layoutParams.height = lineData.measureHeight;
             itemView.setLayoutParams(layoutParams);
         }
     }

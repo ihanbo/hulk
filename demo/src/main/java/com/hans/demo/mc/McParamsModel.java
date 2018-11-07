@@ -1,5 +1,7 @@
 package com.hans.demo.mc;
 
+import android.text.TextUtils;
+
 import java.io.Serializable;
 import java.util.List;
 
@@ -39,6 +41,10 @@ public class McParamsModel {
         public String colspan;
         public List<List<String>> values;
 
-        public int height;
+        public int measureHeight;
+
+        public boolean isSame() {
+            return !TextUtils.isEmpty(colspan);
+        }
     }
 }

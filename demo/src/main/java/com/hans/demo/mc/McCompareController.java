@@ -6,7 +6,8 @@ import android.util.Log;
 import android.util.SparseArray;
 
 import java.util.ArrayList;
-import java.util.Arrays;
+import java.util.Collections;
+import java.util.Iterator;
 import java.util.List;
 
 /**
@@ -30,7 +31,7 @@ public class McCompareController {
         mView = view;
         mView.setController(this);
 
-        setData(getTempData());
+        setData(TempData.getTempData());
     }
 
     public void deleteCar(McCarSummary data) {
@@ -40,15 +41,16 @@ public class McCompareController {
     //添加车型
     public void addCar() {
 
-
     }
 
     public void hideSameTo(boolean checked) {
+        if(checked){
+            mView.getParamsAdapter().setData();
+        }
 
     }
 
-    private McCarCompareModel mData;
-    private List<McParamsModel.McLineBean> lines;
+
     /**
      * 0 行11
      * 1 行12
@@ -59,7 +61,13 @@ public class McCompareController {
      * 4 行22
      * 4          块2    1
      */
-    private SparseArray<McParamsModel> heads;
+    private SparseArray<McParamsModel> mFullHeads;
+    private McCarCompareModel mData;
+    private List<McParamsModel.McLineBean> mFullData;
+    private List<McParamsModel.McLineBean> linesNoSame;
+
+    private final List COMMON_EMPTY = Collections.EMPTY_LIST;
+
 
     public void setData(McCarCompareModel data) {
         if (data == null || data.configurations == null || data.configurations.isEmpty()
@@ -69,142 +77,86 @@ public class McCompareController {
 
         long start = System.currentTimeMillis();
 
-        lines = new ArrayList<>(128);
-        heads = new SparseArray<>(32);
+        //需要在最后添加addcar
+        boolean neeadAddExtra = data.model_infos.size() < 9;
+
+        if (neeadAddExtra) {
+            data.model_infos.add(new McCarSummary.McAddCar());
+        }
+
+        mFullData = new ArrayList<>(128);
+        mFullHeads = new SparseArray<>(32);
+
+        //合并块的数据
         for (int i = 0, len = data.configurations.size(); i < len; i++) {
             McParamsModel mcParamsModel = data.configurations.get(i);
             if (mcParamsModel != null && mcParamsModel.items != null) {
-                lines.addAll(mcParamsModel.items);
+                mFullData.addAll(mcParamsModel.items);
             }
-            heads.put(lines.size() - 1, mcParamsModel);
+            mFullHeads.put(mFullData.size() - 1, mcParamsModel);
         }
 
-        for (int i = 0, len = lines.size(); i < len; i++) {
-            McParamsModel.McLineBean line = lines.get(i);
-            mCalculate.preMeasureLineHeight(line);
+
+        linesNoSame = new ArrayList<>(mFullData.size());
+
+
+        /*
+         * 处理行数据
+         * 1.移除无效数据
+         * 2.计算行高
+         * 3.按需添加行末空项（添加车型）
+         * 4.过滤出不相同的项
+         * */
+        for (Iterator<McParamsModel.McLineBean> iterator = mFullData.iterator(); iterator.hasNext(); ) {
+            McParamsModel.McLineBean lineBean = iterator.next();
+
+            boolean same = lineBean.isSame();
+            if (lineBean.values == null && !same) {
+                iterator.remove();
+                continue;
+            }
+
+            mCalculate.preMeasureLineHeight(lineBean);
+
+            if (lineBean.values != null && neeadAddExtra) {
+                lineBean.values.add(COMMON_EMPTY);
+            }
+
+            if (!same) {
+                linesNoSame.add(lineBean);
+            }
         }
 
         int carMostHeight = mCalculate.preMeasureCarHeight(data.model_infos);
 
         long end = System.currentTimeMillis();
         Log.i("hh", "McCompareController  : setData: cost: " + (end - start));
-        mView.setData(data.model_infos, lines, heads, data.configurations);
+        mView.setData(data.model_infos, mFullData, mFullHeads, data.configurations);
     }
 
     public void jumpTo(McParamsModel data, int pos) {
         if (pos == 0) {
             mView.scrollTo(0);
         } else {
-            mView.scrollTo(heads.keyAt(pos - 1) + 1);
+            mView.scrollTo(mFullHeads.keyAt(pos - 1) + 1);
         }
     }
 
 
     public void openMenu() {
-        if (heads == null || heads.size() == 0) {
+        if (mFullHeads == null || mFullHeads.size() == 0) {
             mView.showMenu(0);
             return;
         }
         LinearLayoutManager layoutManager = (LinearLayoutManager) mView.getParamsView().getLayoutManager();
         if (layoutManager != null) {
             int pos = layoutManager.findFirstVisibleItemPosition();
-            int index = heads.indexOfKey(pos);
+            int index = mFullHeads.indexOfKey(pos);
             if (index < 0) {
                 index = ~index;
             }
             mView.showMenu(index);
         }
-    }
-
-
-    public McCarCompareModel getTempData() {
-        McCarCompareModel mTempData = new McCarCompareModel();
-        mTempData.model_infos = new ArrayList<>(8);
-        mTempData.model_infos.add(createData("发大水发动机卡花费很大", "发大水发的撒范德萨范德萨范德萨范德萨"));
-        mTempData.model_infos.add(createData("发顺丰大范德萨范德萨", "肥嘟嘟多多多"));
-        mTempData.model_infos.add(createData("范德萨发", "阿范德萨"));
-        mTempData.model_infos.add(createData("范德萨", "范德萨范德萨发的"));
-        mTempData.model_infos.add(createData("发生发大水范德萨发房打算范德萨范德萨", "放到"));
-        mTempData.model_infos.add(createData("放到", "范德萨范德萨范德萨范德萨范德萨范德萨范德萨范德范德萨范德萨范德萨范德萨萨范德萨"));
-        mTempData.model_infos.add(createData("发生发的撒", "范德萨范德萨范德萨"));
-        mTempData.model_infos.add(createData("放到", "范德萨范德萨范德萨"));
-
-        mTempData.configurations = new ArrayList<>(8);
-
-        mTempData.configurations.add(createData2("标题", "副标题"));
-        mTempData.configurations.add(createData2("标题2", "副标题2"));
-        mTempData.configurations.add(createData2("标题3", "副标题3"));
-        mTempData.configurations.add(createData2("标题4", "副标题4"));
-        mTempData.configurations.add(createData2("标题5", "副标题5"));
-
-
-        return mTempData;
-    }
-
-    //创建大块
-    private McParamsModel createData2(String title, String subTitle) {
-
-        McParamsModel model = new McParamsModel();
-        model.name = title;
-        model.sub_title = subTitle;
-
-        model.items = new ArrayList<>(8);
-        model.items.add(createData3("车型配置"));
-        model.items.add(createData3("大灯配置"));
-        model.items.add(createData33("座椅配置"));
-        model.items.add(createData3("安全配置"));
-        model.items.add(createData333("高级配置"));
-        return model;
-    }
-
-    //创建行数据
-    private McParamsModel.McLineBean createData3(String name) {
-        McParamsModel.McLineBean line = new McParamsModel.McLineBean();
-        line.name = name;
-        line.values = new ArrayList<>(8);
-        line.values.add(createData4("发达范德萨", "范德萨范德萨发发的说说的说说 "));
-        line.values.add(createData4("范德", "范德萨范德萨看解放军的撒娇 范德萨范德萨范德萨"));
-        line.values.add(createData4("范德萨范德萨发", "范德萨", "fsadfdafds", "fdasfdasfadsfds"));
-        line.values.add(createData4("ddsafds", "fesafdsafd"));
-        line.values.add(createData4("发顺丰的发放的范德萨发撒说法"));
-        line.values.add(createData4("地方撒地方萨芬", "fdsafda"));
-        line.values.add(createData4("范德萨范德萨发大水发的说法是", "范德萨"));
-        line.values.add(createData4("范德萨", "副", "fdsafds", "范德萨发大水发的范德萨范德萨范德萨发的说法"));
-        return line;
-    }
-
-    //创建行数据
-    private McParamsModel.McLineBean createData33(String name) {
-        McParamsModel.McLineBean line = new McParamsModel.McLineBean();
-        line.name = name;
-        line.colspan = "1";
-        line.values = new ArrayList<>(1);
-        line.values.add(createData4("发达范德萨 范德萨范德萨发发的说说的说说 "));
-        return line;
-    }
-
-    //创建行数据
-    private McParamsModel.McLineBean createData333(String name) {
-        McParamsModel.McLineBean line = new McParamsModel.McLineBean();
-        line.name = name;
-        line.colspan = "1";
-        line.values = new ArrayList<>(1);
-        line.values.add(createData4("发达范德萨 范德萨范德萨发发的说说的说说 ", "fdafdsadsas", "发大厦发的发的"));
-        return line;
-    }
-
-    //创建单元格数据，多行
-    private List<String> createData4(String... s) {
-        return Arrays.asList(s);
-    }
-
-
-    public McCarSummary createData(String seriesName, String carName) {
-        McCarSummary carSummary = new McCarSummary();
-        carSummary.series_name = seriesName;
-        carSummary.model_name = carName;
-        return carSummary;
-
     }
 
 

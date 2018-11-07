@@ -56,13 +56,13 @@ public class McCompareParamsItemVH extends RecyclerView.ViewHolder {
 
     public void setData(List<String> data, int position) {
         mData = data;
-        if (mContainer.getChildCount() != 0) {
+        if (mContainer.getChildCount() != 0 || childs.size() != 0) {
+            //TODO REMOVE
             throw new RuntimeException("not recycle");
         }
         if (data.isEmpty()) {
             return;
         }
-        childs.clear();
         for (int i = 0, len = data.size(); i < len; i++) {
             TextView tv = mPool.get();
             tv.setText(data.get(i));

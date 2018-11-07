@@ -55,7 +55,7 @@ public class McCompareCalculate {
 
     //计算行高
     public void preMeasureLineHeight(McParamsModel.McLineBean line) {
-        line.height = preMeasureLineHeight(line.name, line.values);
+        line.measureHeight = preMeasureLineHeight(line.name, line.values);
     }
 
     private int preMeasureLineHeight(String key, List<List<String>> datas) {

@@ -57,7 +57,7 @@ public class McCompareLineAdapter extends RecyclerView.Adapter<McCompareLineAdap
 
         public void setData(McParamsModel.McLineBean lineBean) {
             mLine = lineBean;
-            setNewHeight(lineBean.height);
+            setNewHeight(lineBean.measureHeight);
             mTvKey.setText(lineBean.name);
 
         }
