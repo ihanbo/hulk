@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:visibility="gone"
+    android:background="#66000000">
+
+    <GridView
+        android:id="@+id/grid"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@android:color/white"
+        android:gravity="center"
+        android:horizontalSpacing="9dp"
+        android:numColumns="3"
+        android:padding="@dimen/mc_dimen_18_dip"
+        android:scrollbars="none"
+        android:verticalSpacing="9dp" />
+</FrameLayout>

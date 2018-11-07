@@ -1,6 +1,7 @@
 package com.hans.demo.mc;
 
 import android.app.Activity;
+import android.support.v7.widget.LinearLayoutManager;
 import android.util.Log;
 import android.util.SparseArray;
 
@@ -46,6 +47,20 @@ public class McCompareController {
 
     }
 
+    private McCarCompareModel mData;
+    private List<McParamsModel.McLineBean> lines;
+    /**
+     * 0 行11
+     * 1 行12
+     * 2 行13
+     * key        value  index
+     * 2(size-1)  块1    0
+     * 3 行21
+     * 4 行22
+     * 4          块2    1
+     */
+    private SparseArray<McParamsModel> heads;
+
     public void setData(McCarCompareModel data) {
         if (data == null || data.configurations == null || data.configurations.isEmpty()
                 || data.model_infos == null || data.model_infos.isEmpty()) {
@@ -53,8 +68,9 @@ public class McCompareController {
         }
 
         long start = System.currentTimeMillis();
-        List<McParamsModel.McLineBean> lines = new ArrayList<>(128);
-        SparseArray<McParamsModel> heads = new SparseArray<>(32);
+
+        lines = new ArrayList<>(128);
+        heads = new SparseArray<>(32);
         for (int i = 0, len = data.configurations.size(); i < len; i++) {
             McParamsModel mcParamsModel = data.configurations.get(i);
             if (mcParamsModel != null && mcParamsModel.items != null) {
@@ -72,8 +88,34 @@ public class McCompareController {
 
         long end = System.currentTimeMillis();
         Log.i("hh", "McCompareController  : setData: cost: " + (end - start));
-        mView.setData(data.model_infos, lines, heads);
+        mView.setData(data.model_infos, lines, heads, data.configurations);
     }
+
+    public void jumpTo(McParamsModel data, int pos) {
+        if (pos == 0) {
+            mView.scrollTo(0);
+        } else {
+            mView.scrollTo(heads.keyAt(pos - 1) + 1);
+        }
+    }
+
+
+    public void openMenu() {
+        if (heads == null || heads.size() == 0) {
+            mView.showMenu(0);
+            return;
+        }
+        LinearLayoutManager layoutManager = (LinearLayoutManager) mView.getParamsView().getLayoutManager();
+        if (layoutManager != null) {
+            int pos = layoutManager.findFirstVisibleItemPosition();
+            int index = heads.indexOfKey(pos);
+            if (index < 0) {
+                index = ~index;
+            }
+            mView.showMenu(index);
+        }
+    }
+
 
     public McCarCompareModel getTempData() {
         McCarCompareModel mTempData = new McCarCompareModel();
@@ -164,4 +206,6 @@ public class McCompareController {
         return carSummary;
 
     }
+
+
 }

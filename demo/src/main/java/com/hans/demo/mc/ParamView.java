@@ -9,6 +9,8 @@ import android.util.SparseArray;
 import android.view.View;
 import android.widget.CheckBox;
 import android.widget.FrameLayout;
+import android.widget.GridView;
+import android.widget.Toast;
 
 import com.hans.demo.R;
 import com.timehop.stickyheadersrecyclerview.StickyRecyclerHeadersDecoration;
@@ -23,13 +25,22 @@ import java.util.List;
 
 public class ParamView implements View.OnClickListener {
 
+
+    private View mBackBtn;
+    private View mMenuBtn;
+
+    private FrameLayout mMenuFrame;
+    private GridView mMenu;                                    //菜单
     private FrameLayout topCarFrame;                            //顶部车型一行
     private CheckBox mHideSame;                                 //隐藏相同
     private McCompareHeaderRecyclerView mHeaderContentView;     //车型的recyclerview
+
     private RecyclerView mParamsView;                          //下面参数的纵向适配器
+
 
     private LinesAdapter mParamsAdapter;                      //内容的纵向适配器
     private McCompareCarAdapter mCarAdapter;                 //车型的适配器
+    private McMenuAdapter mMenuAdapter;
 
     private McCellsScrollHandler mScrollHandler;          //控制参数条目跟随滑动
 
@@ -48,25 +59,37 @@ public class ParamView implements View.OnClickListener {
     private void prepare(View view) {
         mScrollHandler = new McCellsScrollHandler();
 
+        mBackBtn = view.findViewById(R.id.iv_back);
+        mMenuBtn = view.findViewById(R.id.iv_right);
+        mBackBtn.setOnClickListener(this);
+        mMenuBtn.setOnClickListener(this);
+
+        //菜单视图
+        mMenuFrame = view.findViewById(R.id.menu_frame);
+        mMenu = mMenuFrame.findViewById(R.id.grid);
+        mMenuFrame.setOnClickListener(this);
+        mMenuAdapter = new McMenuAdapter(null, new McMenuAdapter.FilterCallBack() {
+            @Override
+            public void select(McParamsModel data, int pos) {
+                mController.jumpTo(data, pos);
+            }
+
+            @Override
+            public void dismissMenu() {
+                mMenu.setVisibility(View.GONE);
+            }
+        });
+        mMenu.setAdapter(mMenuAdapter);
+
+        //隐藏相同
         mHideSame = (CheckBox) view.findViewById(R.id.cb_hide_same);
         mHideSame.setOnClickListener(this);
+
+        //车型行
         topCarFrame = view.findViewById(R.id.top_line);
-        mParamsView = (RecyclerView) view.findViewById(R.id.rv_params);
-
-
         mHeaderContentView = (McCompareHeaderRecyclerView) view.findViewById(R.id.rv_car);
         mHeaderContentView.setLayoutManager(new LinearLayoutManager(mActivity, LinearLayoutManager.HORIZONTAL, false));
-        mHeaderContentView.setScrollHandler(mScrollHandler);
         mScrollHandler.regist(mHeaderContentView);
-
-        if (mParamsAdapter == null) {
-            mParamsAdapter = new LinesAdapter(mActivity, mScrollHandler);
-        }
-        mParamsView.setAdapter(mParamsAdapter);
-        mParamsView.setLayoutManager(new LinearLayoutManager(view.getContext(), LinearLayoutManager.VERTICAL, false));
-        mParamsView.addItemDecoration(new McComparetemDecoration(true));
-        mParamsView.addItemDecoration(new StickyRecyclerHeadersDecoration(mParamsAdapter));
-
         if (mCarAdapter == null) {
             mCarAdapter = new McCompareCarAdapter(new McCompareCarAdapter.IAddCarEvent() {
                 @Override
@@ -81,18 +104,36 @@ public class ParamView implements View.OnClickListener {
                 }
             });
         }
-
         mHeaderContentView.setAdapter(mCarAdapter);
 
         //拖动处理
         ItemTouchHelper helper = new ItemTouchHelper(new McDragCallBack(mCarAdapter));
         helper.attachToRecyclerView(mHeaderContentView);
+
+
+        //参数
+        mParamsView = (RecyclerView) view.findViewById(R.id.rv_params);
+        if (mParamsAdapter == null) {
+            mParamsAdapter = new LinesAdapter(mActivity, mScrollHandler);
+        }
+        mParamsView.setAdapter(mParamsAdapter);
+        mParamsView.setLayoutManager(new LinearLayoutManager(view.getContext(), LinearLayoutManager.VERTICAL, false));
+        mParamsView.addItemDecoration(new McComparetemDecoration(true));
+        mParamsView.addItemDecoration(new StickyRecyclerHeadersDecoration(mParamsAdapter));
     }
 
 
-    public void setData(List<McCarSummary> model_infos, List<McParamsModel.McLineBean> lines, SparseArray<McParamsModel> heads) {
+    /**
+     * @param model_infos    车型数据
+     * @param lines          参数数据
+     * @param heads          吸顶头部数据
+     * @param configurations 菜单数据
+     */
+    public void setData(List<McCarSummary> model_infos, List<McParamsModel.McLineBean> lines,
+                        SparseArray<McParamsModel> heads, List<McParamsModel> configurations) {
         mCarAdapter.setData(model_infos);
         mParamsAdapter.setData(lines, heads);
+        mMenuAdapter.setData(configurations);
     }
 
     public void recycle() {
@@ -103,7 +144,32 @@ public class ParamView implements View.OnClickListener {
     public void onClick(View v) {
         if (v == mHideSame) {
             mController.hideSameTo(mHideSame.isChecked());
+        } else if (v == mBackBtn) {
+            mActivity.onBackPressed();
+        } else if (v == mMenuBtn) {
+            mController.openMenu();
+        } else if (v == mMenuFrame) {
+            mMenuFrame.setVisibility(View.GONE);
         }
+    }
+
+
+    public void scrollTo(int pos) {
+        LinearLayoutManager manager = (LinearLayoutManager) mParamsView.getLayoutManager();
+        if (manager == null) {
+            Toast.makeText(mActivity, "跳转出错", Toast.LENGTH_SHORT).show();
+            return;
+        }
+        manager.scrollToPositionWithOffset(pos, 0);
+    }
+
+    public RecyclerView getParamsView() {
+        return mParamsView;
+    }
+
+    public void showMenu(int selectpos) {
+        mMenuAdapter.setSelectPos(selectpos);
+        mMenuFrame.setVisibility(mMenuFrame.isShown() ? View.GONE : View.VISIBLE);
     }
 
 

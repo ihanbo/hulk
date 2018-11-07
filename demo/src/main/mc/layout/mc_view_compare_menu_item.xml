@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TextView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/tv_text"
+    tools:text="基础参数"
+    android:gravity="center"
+    android:layout_width="@dimen/mc_dimen_107_dip"
+    android:layout_height="@dimen/mc_dimen_32_dip"
+    android:background="@drawable/mc_bgs"
+    android:singleLine="true"
+    android:ellipsize="end"
+    android:textColor="@color/mc_color_667187"
+    android:textSize="@dimen/mc_dimen_12_dip" />

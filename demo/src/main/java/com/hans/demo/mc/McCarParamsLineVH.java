@@ -103,8 +103,4 @@ public class McCarParamsLineVH extends RecyclerView.ViewHolder {
         }
     }
 
-
-    public CellsContainer getRecyclerView() {
-        return mRv;
-    }
 }
