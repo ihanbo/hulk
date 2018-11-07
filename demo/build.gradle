@@ -36,4 +36,5 @@ dependencies {
     implementation DEP.GLIDE.glide
     annotationProcessor DEP.GLIDE.glide_ap
     implementation DEP.GLIDE.glide_ok
+    implementation 'com.timehop.stickyheadersrecyclerview:library:0.4.3@aar'
 }

@@ -1,6 +1,7 @@
 package com.hans.demo.mc;
 
 import android.content.Context;
+import android.util.Log;
 import android.util.TypedValue;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
@@ -25,10 +26,11 @@ class McCompareTextPool extends McObjectPoolSingleThread<TextView> {
 
     @Override
     public TextView createNewObj() {
+        Log.i("hh", "McCompareTextPool  : createNewObj: " + mCreateNewCount);
         TextView tv = new TextView(mContext);
         tv.setTextSize(TypedValue.COMPLEX_UNIT_DIP, 12);
         ViewGroup.MarginLayoutParams lp = new ViewGroup.MarginLayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-        lp.topMargin = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 10, mContext.getResources().getDisplayMetrics());
+//        lp.topMargin = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 10, mContext.getResources().getDisplayMetrics());
         tv.setLayoutParams(lp);
         tv.setTextColor(mContext.getResources().getColor(R.color.mc_color_192132));
         return tv;

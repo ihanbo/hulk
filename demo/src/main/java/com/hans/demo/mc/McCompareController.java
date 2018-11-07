@@ -57,10 +57,10 @@ public class McCompareController {
         SparseArray<McParamsModel> heads = new SparseArray<>(32);
         for (int i = 0, len = data.configurations.size(); i < len; i++) {
             McParamsModel mcParamsModel = data.configurations.get(i);
-            heads.put(lines.size(), mcParamsModel);
             if (mcParamsModel != null && mcParamsModel.items != null) {
                 lines.addAll(mcParamsModel.items);
             }
+            heads.put(lines.size() - 1, mcParamsModel);
         }
 
         for (int i = 0, len = lines.size(); i < len; i++) {
@@ -108,7 +108,10 @@ public class McCompareController {
 
         model.items = new ArrayList<>(8);
         model.items.add(createData3("车型配置"));
-
+        model.items.add(createData3("大灯配置"));
+        model.items.add(createData33("座椅配置"));
+        model.items.add(createData3("安全配置"));
+        model.items.add(createData333("高级配置"));
         return model;
     }
 
@@ -125,6 +128,26 @@ public class McCompareController {
         line.values.add(createData4("地方撒地方萨芬", "fdsafda"));
         line.values.add(createData4("范德萨范德萨发大水发的说法是", "范德萨"));
         line.values.add(createData4("范德萨", "副", "fdsafds", "范德萨发大水发的范德萨范德萨范德萨发的说法"));
+        return line;
+    }
+
+    //创建行数据
+    private McParamsModel.McLineBean createData33(String name) {
+        McParamsModel.McLineBean line = new McParamsModel.McLineBean();
+        line.name = name;
+        line.colspan = "1";
+        line.values = new ArrayList<>(1);
+        line.values.add(createData4("发达范德萨 范德萨范德萨发发的说说的说说 "));
+        return line;
+    }
+
+    //创建行数据
+    private McParamsModel.McLineBean createData333(String name) {
+        McParamsModel.McLineBean line = new McParamsModel.McLineBean();
+        line.name = name;
+        line.colspan = "1";
+        line.values = new ArrayList<>(1);
+        line.values.add(createData4("发达范德萨 范德萨范德萨发发的说说的说说 ", "fdafdsadsas", "发大厦发的发的"));
         return line;
     }
 

@@ -45,7 +45,7 @@ public class McCompareParamsItemVH extends RecyclerView.ViewHolder {
         lp.gravity = Gravity.CENTER;
         frame.addView(mContainer, lp);
         int padding = McCompareCalculate.dP2px(10);
-        frame.setPadding(padding, 0, padding, padding);
+        frame.setPadding(padding, padding, padding, padding);
         frame.setLayoutParams(new RecyclerView.LayoutParams(width, height));
         return frame;
     }
@@ -72,7 +72,11 @@ public class McCompareParamsItemVH extends RecyclerView.ViewHolder {
     }
 
 
-    public void recycleAll() {
+    public View getItemView() {
+        return itemView;
+    }
+
+    public void recycle() {
         if (childs.isEmpty()) {
             return;
         }
@@ -80,10 +84,4 @@ public class McCompareParamsItemVH extends RecyclerView.ViewHolder {
         mPool.putAll(childs);
         childs.clear();
     }
-
-
-    public View getItemView() {
-        return itemView;
-    }
-
 }

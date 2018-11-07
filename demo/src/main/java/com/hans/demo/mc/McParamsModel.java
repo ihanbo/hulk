@@ -24,7 +24,7 @@ public class McParamsModel {
 
 
     //行数据
-    public static class McLineBean implements Serializable{
+    public static class McLineBean implements Serializable {
         /**
          * name : 驱动方式
          * configure_id : 100060001
@@ -36,7 +36,7 @@ public class McParamsModel {
         public String name;
         public String configure_id;
         public String field;
-        public boolean colspan;
+        public String colspan;
         public List<List<String>> values;
 
         public int height;

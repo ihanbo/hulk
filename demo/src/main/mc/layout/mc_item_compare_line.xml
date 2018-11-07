@@ -6,9 +6,11 @@
 
     <TextView
         android:id="@+id/tv_key"
-        android:layout_width="@dimen/mc_dimen_85_dip"
+        android:layout_width="@dimen/mc_dimen_95_dip"
         android:layout_height="match_parent"
-        android:gravity="center" />
+        android:gravity="center"
+        android:textColor="@color/mc_color_667187"
+        android:textSize="@dimen/mc_dimen_12_dip" />
 
     <View
         android:layout_width="0.5dp"
@@ -28,6 +30,9 @@
         android:id="@+id/tv_same"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:textSize="@dimen/mc_dimen_12_dip"
+        android:textColor="@color/mc_color_192132"
+        android:gravity="center"
         android:layout_marginLeft="@dimen/mc_dimen_85_dip" />
 
 </FrameLayout>

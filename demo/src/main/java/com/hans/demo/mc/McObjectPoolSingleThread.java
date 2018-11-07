@@ -14,7 +14,7 @@ import java.util.List;
 public abstract class McObjectPoolSingleThread<T> {
 
     private LinkedList<T> mLinkedList;
-    private int mCreateNewCount;
+    protected int mCreateNewCount;
 
 
     public McObjectPoolSingleThread() {

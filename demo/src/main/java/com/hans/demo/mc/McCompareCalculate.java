@@ -23,14 +23,14 @@ public class McCompareCalculate {
 
     private static DisplayMetrics displayMetrics = getApp().getResources().getDisplayMetrics();
 
-    public static final int DEFAULT_HEIGHT = dP2px(80);
+    public static final int DEFAULT_HEIGHT = dP2px(60);
     public static final int DEFAULT_WIDTH = dP2px(145);
     public static final int KEY_WIDTH = dP2px(85);
 
 
-    private TextView mKey;              //计算key的高度
+    private TextView mKey;                      //计算key的高度
     private McCompareParamsItemVH paramsItem;   //参数单元格
-    private McCompareCarItemVH carItem;   //顶部车型的条目
+    private McCompareCarItemVH carItem;         //顶部车型的条目
 
     private static int keyWidthMeasureSpec = View.MeasureSpec.makeMeasureSpec(KEY_WIDTH, View.MeasureSpec.EXACTLY);         //键的宽度测量spec
     private static int paramsWidthMeasureSpec = View.MeasureSpec.makeMeasureSpec(DEFAULT_WIDTH, View.MeasureSpec.EXACTLY);  //参数单元格的宽度测量spec
@@ -41,29 +41,24 @@ public class McCompareCalculate {
         displayMetrics = getApp().getResources().getDisplayMetrics();
         int dp10 = dP2px(10);
         mKey.setPadding(dp10, dp10, dp10, dp10);
-        mKey.setTextSize(12,TypedValue.COMPLEX_UNIT_DIP);
+        mKey.setTextSize(12, TypedValue.COMPLEX_UNIT_DIP);
         mKey.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
 
         paramsItem = new McCompareParamsItemVH(new LinearLayout(getApp()), new McCompareTextPool(activity));
         paramsItem.getItemView().setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
 
-
-        carItem = new McCompareCarItemVH(new LinearLayout(getApp()),null);
+        carItem = new McCompareCarItemVH(new LinearLayout(getApp()), null);
         carItem.getItemView().setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
 
     }
 
 
-    public static int dP2px(float dp) {
-        return (int) (TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, dp, displayMetrics) + 0.5f);
-    }
-
+    //计算行高
     public void preMeasureLineHeight(McParamsModel.McLineBean line) {
         line.height = preMeasureLineHeight(line.name, line.values);
     }
 
-    //计算行高
-    public int preMeasureLineHeight(String key, List<List<String>> datas) {
+    private int preMeasureLineHeight(String key, List<List<String>> datas) {
         if (key == null && (datas == null || datas.isEmpty())) {
             return DEFAULT_HEIGHT;
         }
@@ -77,7 +72,7 @@ public class McCompareCalculate {
             return height;
         }
 
-        paramsItem.recycleAll();
+        paramsItem.recycle();
         for (int i = 0, len = datas.size(); i < len; i++) {
             paramsItem.setData(datas.get(i), -1);
             paramsItem.getItemView().measure(paramsWidthMeasureSpec, atMostMeasureSpec);
@@ -85,7 +80,7 @@ public class McCompareCalculate {
             if (i1 > height) {
                 height = i1;
             }
-            paramsItem.recycleAll();
+            paramsItem.recycle();
         }
         return height;
     }
@@ -114,6 +109,11 @@ public class McCompareCalculate {
 
     static Application getApp() {
         return App.mApp;
+    }
+
+
+    public static int dP2px(float dp) {
+        return (int) (TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, dp, displayMetrics) + 0.5f);
     }
 
 

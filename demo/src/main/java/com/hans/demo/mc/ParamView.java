@@ -11,6 +11,7 @@ import android.widget.CheckBox;
 import android.widget.FrameLayout;
 
 import com.hans.demo.R;
+import com.timehop.stickyheadersrecyclerview.StickyRecyclerHeadersDecoration;
 
 import java.util.List;
 
@@ -64,6 +65,7 @@ public class ParamView implements View.OnClickListener {
         mParamsView.setAdapter(mParamsAdapter);
         mParamsView.setLayoutManager(new LinearLayoutManager(view.getContext(), LinearLayoutManager.VERTICAL, false));
         mParamsView.addItemDecoration(new McComparetemDecoration(true));
+        mParamsView.addItemDecoration(new StickyRecyclerHeadersDecoration(mParamsAdapter));
 
         if (mCarAdapter == null) {
             mCarAdapter = new McCompareCarAdapter(new McCompareCarAdapter.IAddCarEvent() {
@@ -90,7 +92,7 @@ public class ParamView implements View.OnClickListener {
 
     public void setData(List<McCarSummary> model_infos, List<McParamsModel.McLineBean> lines, SparseArray<McParamsModel> heads) {
         mCarAdapter.setData(model_infos);
-        mParamsAdapter.setData(lines);
+        mParamsAdapter.setData(lines, heads);
     }
 
     public void recycle() {
