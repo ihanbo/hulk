@@ -1,4 +1,4 @@
-package com.hans.demo.mc;
+package com.didi.theonebts.minecraft.car.compare;
 
 import android.app.Activity;
 import android.support.v7.widget.LinearLayoutManager;
@@ -18,7 +18,7 @@ public class McCompareController {
 
 
     private Activity mActivity;
-    private McParamView mView;
+    private McCompareParamView mView;
     private McCompareCalculate mCalculate;
 
     public McCompareController(Activity activity) {
@@ -27,7 +27,7 @@ public class McCompareController {
     }
 
 
-    public void onViewCreated(McParamView view) {
+    public void onViewCreated(McCompareParamView view) {
         mView = view;
         mView.setController(this);
 

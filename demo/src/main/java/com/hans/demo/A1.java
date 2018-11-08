@@ -12,8 +12,8 @@ import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
-import com.hans.demo.mc.McCompareController;
-import com.hans.demo.mc.McParamView;
+import com.didi.theonebts.minecraft.car.compare.McCompareController;
+import com.didi.theonebts.minecraft.car.compare.McCompareParamView;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -26,7 +26,6 @@ public class A1 extends AppCompatActivity {
         context.startActivity(starter);
     }
 
-    public List<List<String>> mData;
 
     McCompareController mController;
 
@@ -35,19 +34,9 @@ public class A1 extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_a1);
 
-        mData = new ArrayList<>();
-        mData.add(createData("发大水发动机卡花费很大", "发大水发的撒范德萨范德萨范德萨范德萨"));
-        mData.add(createData("发顺丰大范德萨范德萨", "肥嘟嘟多多多"));
-        mData.add(createData("范德萨发", "阿范德萨"));
-        mData.add(createData("范德萨", "范德萨范德萨发的"));
-        mData.add(createData("发生发大水范德萨发房打算范德萨范德萨", "放到"));
-        mData.add(createData("放到", "范德萨范德萨范德萨范德萨范德萨范德萨范德萨范德范德萨范德萨范德萨范德萨萨范德萨"));
-        mData.add(createData("发生发的撒", "范德萨范德萨范德萨"));
-        mData.add(createData("放到", "范德萨范德萨范德萨"));
-
 
         mController = new McCompareController(this);
-        McParamView view = new McParamView(this, findViewById(R.id.root_view));
+        McCompareParamView view = new McCompareParamView(this, findViewById(R.id.root_view));
         mController.onViewCreated(view);
     }
 

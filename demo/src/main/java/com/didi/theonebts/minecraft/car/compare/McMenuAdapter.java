@@ -1,8 +1,7 @@
-package com.hans.demo.mc;
+package com.didi.theonebts.minecraft.car.compare;
 
 import android.content.Context;
 import android.graphics.Color;
-import android.os.Handler;
 import android.support.annotation.NonNull;
 import android.util.SparseArray;
 import android.view.LayoutInflater;
@@ -13,8 +12,6 @@ import android.widget.FrameLayout;
 import android.widget.TextView;
 
 import com.hans.demo.R;
-
-import java.util.List;
 
 /**
  * 菜单适配器

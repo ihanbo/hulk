@@ -1,15 +1,12 @@
-package com.hans.demo.mc;
+package com.didi.theonebts.minecraft.car.compare;
 
 import android.content.Context;
 import android.util.Log;
 import android.util.TypedValue;
 import android.view.ViewGroup;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.hans.demo.R;
-
-import java.util.List;
 
 /**
  * @author hanbo

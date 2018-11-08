@@ -1,4 +1,4 @@
-package com.hans.demo.mc;
+package com.didi.theonebts.minecraft.car.compare;
 
 import android.support.v7.widget.RecyclerView;
 import android.view.ViewGroup;

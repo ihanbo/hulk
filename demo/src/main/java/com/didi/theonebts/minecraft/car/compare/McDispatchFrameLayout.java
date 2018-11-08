@@ -1,4 +1,4 @@
-package com.hans.demo.mc;
+package com.didi.theonebts.minecraft.car.compare;
 
 import android.content.Context;
 import android.util.AttributeSet;
@@ -12,7 +12,7 @@ import android.widget.FrameLayout;
  * Created by ihanb on 2017/10/19.
  */
 
-public class DispatchFrameLayout extends FrameLayout {
+public class McDispatchFrameLayout extends FrameLayout {
     private int mTouchSlop;
 
     private DispatchTouchEventListener mDispatchTouchEventListener = new DispatchTouchEventListener() {
@@ -23,18 +23,18 @@ public class DispatchFrameLayout extends FrameLayout {
     };
     private boolean mIsBegainDraging;
 
-    public DispatchFrameLayout(Context context) {
+    public McDispatchFrameLayout(Context context) {
         super(context);
         init();
 
     }
 
-    public DispatchFrameLayout(Context context, AttributeSet attrs) {
+    public McDispatchFrameLayout(Context context, AttributeSet attrs) {
         super(context, attrs);
         init();
     }
 
-    public DispatchFrameLayout(Context context, AttributeSet attrs, int defStyleAttr) {
+    public McDispatchFrameLayout(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
         init();
     }

@@ -1,4 +1,4 @@
-package com.hans.demo.mc;
+package com.didi.theonebts.minecraft.car.compare;
 
 
 import android.app.Activity;
@@ -20,7 +20,7 @@ import com.timehop.stickyheadersrecyclerview.StickyRecyclerHeadersDecoration;
 
 import java.util.List;
 
-import static com.hans.demo.mc.McCompareCalculate.LINE_END_PADDING;
+import static com.didi.theonebts.minecraft.car.compare.McCompareCalculate.LINE_END_PADDING;
 
 
 /**
@@ -28,7 +28,7 @@ import static com.hans.demo.mc.McCompareCalculate.LINE_END_PADDING;
  * Email：sudi@yiche.com
  */
 
-public class McParamView implements View.OnClickListener {
+public class McCompareParamView implements View.OnClickListener {
 
 
     private View mBackBtn;
@@ -41,7 +41,7 @@ public class McParamView implements View.OnClickListener {
     private McCompareHeaderRecyclerView mHeaderContentView;     //车型的recyclerview
 
 
-    private DispatchFrameLayout mListParent;                    //分发事件的父容器
+    private McDispatchFrameLayout mListParent;                    //分发事件的父容器
     private RecyclerView mParamsView;                          //下面参数的纵向适配器
 
 
@@ -54,7 +54,7 @@ public class McParamView implements View.OnClickListener {
     private Activity mActivity;
     private McCompareController mController;
 
-    public McParamView(Activity activity, View view) {
+    public McCompareParamView(Activity activity, View view) {
         mActivity = activity;
         prepare(view);
     }
@@ -120,8 +120,8 @@ public class McParamView implements View.OnClickListener {
 
 
         //事件分发
-        mListParent = (DispatchFrameLayout) view.findViewById(R.id.df_frame);
-        mListParent.setDispatchTouchEventListener(new DispatchFrameLayout.DispatchTouchEventListener() {
+        mListParent = (McDispatchFrameLayout) view.findViewById(R.id.df_frame);
+        mListParent.setDispatchTouchEventListener(new McDispatchFrameLayout.DispatchTouchEventListener() {
             @Override
             public boolean dispatchTouchEvent(MotionEvent ev) {
                 mHeaderContentView.onFakeTouchEvent(ev);

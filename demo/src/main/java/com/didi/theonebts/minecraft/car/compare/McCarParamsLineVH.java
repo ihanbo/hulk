@@ -1,4 +1,4 @@
-package com.hans.demo.mc;
+package com.didi.theonebts.minecraft.car.compare;
 
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -52,7 +52,7 @@ public class McCarParamsLineVH extends RecyclerView.ViewHolder {
         mRv = (McMcCellsRecyclerView) itemView.findViewById(R.id.rv);
         mTvSame = (TextView) itemView.findViewById(R.id.tv_same);
         mRv.addItemDecoration(mDecoration);
-        mRv.addItemDecoration(new McParamView.McStartEndMarginDecoration());
+        mRv.addItemDecoration(new McCompareParamView.McStartEndMarginDecoration());
         mRv.setLayoutManager(new LinearLayoutManager(itemView.getContext(), LinearLayoutManager.HORIZONTAL, false));
         mMcCellsScrollHandler.regist(mRv);
         mCellAdapter = new McCompareCellsAdapter(mPool);

@@ -18,13 +18,13 @@
         android:layout_marginLeft="@dimen/mc_dimen_90_dip"
         android:background="@color/mc_10_black" />
 
-    <com.hans.demo.mc.McMcCellsRecyclerView
+    <com.didi.theonebts.minecraft.car.compare.McMcCellsRecyclerView
         android:id="@+id/rv"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_marginLeft="@dimen/mc_dimen_90_dip">
 
-    </com.hans.demo.mc.McMcCellsRecyclerView>
+    </com.didi.theonebts.minecraft.car.compare.McMcCellsRecyclerView>
 
     <TextView
         android:id="@+id/tv_same"

@@ -65,13 +65,13 @@
         android:orientation="horizontal">
 
 
-        <com.hans.demo.mc.McCompareHeaderRecyclerView
+        <com.didi.theonebts.minecraft.car.compare.McCompareHeaderRecyclerView
             android:id="@+id/rv_car"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_marginLeft="@dimen/mc_dimen_90_dip">
 
-        </com.hans.demo.mc.McCompareHeaderRecyclerView>
+        </com.didi.theonebts.minecraft.car.compare.McCompareHeaderRecyclerView>
 
         <FrameLayout
             android:layout_width="@dimen/mc_dimen_101_dip"
@@ -101,7 +101,7 @@
         android:layout_below="@+id/top_line"
         android:background="@null">
 
-        <com.hans.demo.mc.DispatchFrameLayout
+        <com.didi.theonebts.minecraft.car.compare.McDispatchFrameLayout
             android:id="@+id/df_frame"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
@@ -113,7 +113,7 @@
                 android:layout_height="match_parent">
 
             </android.support.v7.widget.RecyclerView>
-        </com.hans.demo.mc.DispatchFrameLayout>
+        </com.didi.theonebts.minecraft.car.compare.McDispatchFrameLayout>
 
 
     </FrameLayout>
