@@ -53,6 +53,9 @@ public class McComparetemDecoration extends RecyclerView.ItemDecoration {
         final int childCount = parent.getChildCount();
         for (int i = 0; i < childCount; i++) {
             final View child = parent.getChildAt(i);
+            if (!needDraw(parent, child)) {
+                continue;
+            }
             //获得child的布局信息
             final RecyclerView.LayoutParams params = (RecyclerView.LayoutParams) child.getLayoutParams();
             final int left = params.rightMargin + child.getRight();
@@ -69,6 +72,9 @@ public class McComparetemDecoration extends RecyclerView.ItemDecoration {
         final int childCount = parent.getChildCount();
         for (int i = 0; i < childCount; i++) {
             final View child = parent.getChildAt(i);
+            if (!needDraw(parent, child)) {
+                continue;
+            }
             //获得child的布局信息
             final RecyclerView.LayoutParams params = (RecyclerView.LayoutParams) child.getLayoutParams();
             final int top = child.getBottom() + params.bottomMargin;
@@ -78,15 +84,29 @@ public class McComparetemDecoration extends RecyclerView.ItemDecoration {
         }
     }
 
+
+    /**
+     * 判断是否需要绘制分割线
+     *
+     * @param parent RecyclerView
+     * @param child  当前itemview
+     * @return
+     */
+    protected boolean needDraw(RecyclerView parent, View child) {
+        return true;
+    }
+
     @Override
     public void getItemOffsets(Rect outRect, View view, RecyclerView
             parent, RecyclerView.State state) {
-        super.getItemOffsets(outRect, view, parent, state);
         if (mIsVerticalList) {
-            outRect.set(0, 0, 0, divWidth);
+            if (needDraw(parent, view)) {
+                outRect.set(0, 0, 0, divWidth);
+            }
         } else {
-            outRect.set(0, 0, divWidth, 0);
+            if (needDraw(parent, view)) {
+                outRect.set(0, 0, divWidth, 0);
+            }
         }
-
     }
 }

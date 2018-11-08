@@ -8,8 +8,9 @@
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginBottom="@dimen/mc_dimen_15_dip"
+        android:layout_marginBottom="@dimen/mc_dimen_5_dip"
         android:layout_marginLeft="@dimen/mc_dimen_5_dip"
+        android:layout_marginRight="@dimen/mc_dimen_5_dip"
         android:layout_marginTop="@dimen/mc_dimen_15_dip"
         android:background="@drawable/mc_bg_compare_car_item">
 
@@ -60,9 +61,10 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="right"
-        android:layout_marginTop="@dimen/mc_dimen_5_dip"
         android:background="@null"
-        android:padding="@dimen/mc_dimen_5_dip"
+        android:paddingLeft="@dimen/mc_dimen_5_dip"
+        android:paddingTop="@dimen/mc_dimen_10_dip"
+        android:paddingBottom="@dimen/mc_dimen_5_dip"
         android:src="@drawable/mc_ic_compare_car_del" />
 
 </FrameLayout>

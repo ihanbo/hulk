@@ -51,7 +51,7 @@ public class McCarParamsLineVH extends RecyclerView.ViewHolder {
         mTvKey = (TextView) itemView.findViewById(R.id.tv_key);
         mRv = (McMcCellsRecyclerView) itemView.findViewById(R.id.rv);
         mTvSame = (TextView) itemView.findViewById(R.id.tv_same);
-        mRv.addItemDecoration(new McComparetemDecoration(false));
+        mRv.addItemDecoration(mDecoration);
         mRv.addItemDecoration(new McParamView.McStartEndMarginDecoration());
         mRv.setLayoutManager(new LinearLayoutManager(itemView.getContext(), LinearLayoutManager.HORIZONTAL, false));
         mMcCellsScrollHandler.regist(mRv);
@@ -118,4 +118,19 @@ public class McCarParamsLineVH extends RecyclerView.ViewHolder {
         }
     }
 
+    //分割线，最后一个不画
+    private McComparetemDecoration mDecoration = new McComparetemDecoration(false) {
+        @Override
+        protected boolean needDraw(RecyclerView parent, View child) {
+            int index = parent.getChildAdapterPosition(child);
+            if (index < 0) {
+                return super.needDraw(parent, child);
+            }
+            if (index == parent.getAdapter().getItemCount() - 1) {
+                return false;
+            } else {
+                return true;
+            }
+        }
+    };
 }

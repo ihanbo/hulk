@@ -84,8 +84,8 @@ public class DispatchFrameLayout extends FrameLayout {
                 }
 
                 customProcess = abx > mTouchSlop && abx > Math.abs(deltaY);
-                Log.i("hh", "DispatchFrameLayout  : dispatchTouchEvent: oldx:" + mOldX + " oldy:" + mOldY + " x:" + x + " y:" + y
-                        + " deltaX:" + deltaX + " deltaY:" + deltaY + "" + customProcess);
+//                Log.i("hh", "DispatchFrameLayout  : dispatchTouchEvent: oldx:" + mOldX + " oldy:" + mOldY + " x:" + x + " y:" + y
+//                        + " deltaX:" + deltaX + " deltaY:" + deltaY + "" + customProcess);
                 hasProcessIng = true;
                 int action = ev.getAction();
                 if (customProcess) {
@@ -105,7 +105,7 @@ public class DispatchFrameLayout extends FrameLayout {
             mDispatchTouchEventListener.dispatchTouchEvent(ev);
             result = super.dispatchTouchEvent(ev);
         } else {
-            Log.i("hh", "DispatchFrameLayout  : dispatchTouchEvent: else");
+            Log.wtf("hh", "DispatchFrameLayout  : dispatchTouchEvent: else");
             result = super.dispatchTouchEvent(ev);
         }
 
