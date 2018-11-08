@@ -8,8 +8,13 @@ import android.util.AttributeSet;
 import android.view.MotionEvent;
 import android.view.View;
 
-
-public class McCompareHeaderRecyclerView extends RecyclerView implements CellsContainer {
+/**
+ * 顶部车型的Recyclerview
+ *
+ * @author hanbo
+ * @date 2018/11/6
+ */
+public class McCompareHeaderRecyclerView extends RecyclerView {
     private LinearLayoutManager mLayoutManager;
 
     private McCellsScrollHandler mHandler;
@@ -34,7 +39,7 @@ public class McCompareHeaderRecyclerView extends RecyclerView implements CellsCo
         int offset = topView.getLeft();                             //获取与该view的顶部的偏移量
         int position = getLayoutManager().getPosition(topView);     //得到该View的数组位置
         if (mHandler != null) {
-            mHandler.notifyScrollTo(offset, position, this);
+            mHandler.notifyScrollTo(offset, position);
             mHandler.recordCurrentPosition(offset, position);
         }
         super.onScrolled(dx, dy);
@@ -63,20 +68,5 @@ public class McCompareHeaderRecyclerView extends RecyclerView implements CellsCo
         mLayoutManager = (LinearLayoutManager) layout;
     }
 
-    @Override
-    public void dealScrollTo(int offset, int position) {
-        if (mLayoutManager == null) {
-            return;
-        }
-        ((LinearLayoutManager) getLayoutManager()).scrollToPositionWithOffset(position, offset);
-    }
-
-    @Override
-    public void initOffset(int position, int positionOffset) {
-        if (mLayoutManager == null) {
-            mLayoutManager = (LinearLayoutManager) getLayoutManager();
-        }
-        mLayoutManager.scrollToPositionWithOffset(position, positionOffset);
-    }
 
 }

@@ -1,13 +1,15 @@
 package com.hans.demo.mc;
 
 /**
- * Created by sudi on 2017/10/20.
- * Email：sudi@yiche.com
+ * 滑动同步回调接口
+ *
+ * @author hanbo
+ * @date 2018/11/5
  */
 
-public interface CellsContainer {
+public interface McCellsContainer {
 
-    void dealScrollTo(int x, int y);
+    void dealScrollTo(int offset, int position);
 
     /**
      * 指定到某位置

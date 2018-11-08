@@ -20,13 +20,15 @@ import com.timehop.stickyheadersrecyclerview.StickyRecyclerHeadersDecoration;
 
 import java.util.List;
 
+import static com.hans.demo.mc.McCompareCalculate.LINE_END_PADDING;
+
 
 /**
  * Created by sudi on 2017/10/20.
  * Email：sudi@yiche.com
  */
 
-public class ParamView implements View.OnClickListener {
+public class McParamView implements View.OnClickListener {
 
 
     private View mBackBtn;
@@ -43,7 +45,7 @@ public class ParamView implements View.OnClickListener {
     private RecyclerView mParamsView;                          //下面参数的纵向适配器
 
 
-    private LinesAdapter mParamsAdapter;                        //内容的纵向适配器
+    private McParamsLinesAdapter mParamsAdapter;                        //内容的纵向适配器
     private McCompareCarAdapter mCarAdapter;                    //车型的适配器
     private McMenuAdapter mMenuAdapter;
 
@@ -52,7 +54,7 @@ public class ParamView implements View.OnClickListener {
     private Activity mActivity;
     private McCompareController mController;
 
-    public ParamView(Activity activity, View view) {
+    public McParamView(Activity activity, View view) {
         mActivity = activity;
         prepare(view);
     }
@@ -81,7 +83,7 @@ public class ParamView implements View.OnClickListener {
 
             @Override
             public void dismissMenu() {
-                mMenu.setVisibility(View.GONE);
+                mMenuFrame.setVisibility(View.GONE);
             }
         });
         mMenu.setAdapter(mMenuAdapter);
@@ -96,11 +98,10 @@ public class ParamView implements View.OnClickListener {
         mHeaderContentView.setLayoutManager(new LinearLayoutManager(mActivity, LinearLayoutManager.HORIZONTAL, false));
         mHeaderContentView.addItemDecoration(new McStartEndMarginDecoration());
         mHeaderContentView.setScrollHandler(mScrollHandler);
-        mScrollHandler.regist(mHeaderContentView);
         if (mCarAdapter == null) {
             mCarAdapter = new McCompareCarAdapter(new McCompareCarAdapter.IAddCarEvent() {
                 @Override
-                public void deleteCar(McCarSummary data) {
+                public void deleteCar(McCarSummary data, int pos) {
                     mController.deleteCar(data);
 
                 }
@@ -131,11 +132,11 @@ public class ParamView implements View.OnClickListener {
         //参数
         mParamsView = (RecyclerView) view.findViewById(R.id.rv_params);
         if (mParamsAdapter == null) {
-            mParamsAdapter = new LinesAdapter(mActivity, mScrollHandler);
+            mParamsAdapter = new McParamsLinesAdapter(mActivity, mScrollHandler);
         }
         mParamsView.setAdapter(mParamsAdapter);
         mParamsView.setLayoutManager(new LinearLayoutManager(view.getContext(), LinearLayoutManager.VERTICAL, false));
-        mParamsView.addItemDecoration(new McComparetemDecoration(true));
+        mParamsView.addItemDecoration(new McComparetemDecoration(true ));
         mParamsView.addItemDecoration(new StickyRecyclerHeadersDecoration(mParamsAdapter));
     }
 
@@ -201,7 +202,7 @@ public class ParamView implements View.OnClickListener {
         mMenuFrame.setVisibility(mMenuFrame.isShown() ? View.GONE : View.VISIBLE);
     }
 
-    public LinesAdapter getParamsAdapter() {
+    public McParamsLinesAdapter getParamsAdapter() {
         return mParamsAdapter;
     }
 
@@ -249,15 +250,13 @@ public class ParamView implements View.OnClickListener {
         public void getItemOffsets(Rect outRect, View view, RecyclerView
                 parent, RecyclerView.State state) {
 
-            //如果不是第一个，则设置top的值。
             int pos = parent.getChildAdapterPosition(view);
             if (pos == 0) {
-                //这里直接硬编码为1px
-                outRect.left = McCompareCalculate.dP2px(10);
+                outRect.left = 0;
             } else if (parent.getChildAdapterPosition(view) == parent.getAdapter().getItemCount() - 1) {
-                outRect.right = McCompareCalculate.dP2px(10);
+                outRect.right = LINE_END_PADDING;
             } else {
-                super.getItemOffsets(outRect, view, parent, state);
+                outRect.set(0, 0, 0, 0);
             }
 
         }

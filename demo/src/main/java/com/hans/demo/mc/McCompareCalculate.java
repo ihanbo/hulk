@@ -25,7 +25,10 @@ public class McCompareCalculate {
 
     public static final int DEFAULT_HEIGHT = dP2px(60);
     public static final int DEFAULT_WIDTH = dP2px(145);
-    public static final int KEY_WIDTH = dP2px(85);
+    public static final int KEY_WIDTH = dP2px(95);
+
+
+    public static final int LINE_END_PADDING = dP2px(10);
 
 
     private TextView mKey;                      //计算key的高度

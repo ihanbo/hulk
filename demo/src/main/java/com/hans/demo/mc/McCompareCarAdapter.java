@@ -5,7 +5,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.hans.demo.A1;
 import com.hans.demo.R;
 
 import java.util.ArrayList;
@@ -107,7 +106,7 @@ public class McCompareCarAdapter extends RecyclerView.Adapter {
 
     public interface IAddCarEvent {
 
-        void deleteCar(McCarSummary data);
+        void deleteCar(McCarSummary data, int pos);
 
         void addCar(int position);
     }

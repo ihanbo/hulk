@@ -1,7 +1,5 @@
 package com.hans.demo.mc;
 
-import android.widget.TextView;
-
 import java.util.LinkedList;
 import java.util.List;
 

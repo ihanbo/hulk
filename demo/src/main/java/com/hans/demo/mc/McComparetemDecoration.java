@@ -14,32 +14,42 @@ import android.view.View;
  * @Since 2018/11/6
  */
 public class McComparetemDecoration extends RecyclerView.ItemDecoration {
-    int divWidth = McCompareCalculate.dP2px(0.5f);
-    public static final int ORI_H = 0;
-    public static final int ORI_V = 1;
-    private int oritation = ORI_H;
-
-    Rect lineRect = new Rect();
-    Paint mPaint = new Paint();
+    private int divWidth = McCompareCalculate.dP2px(0.5f);
+    private boolean mIsVerticalList = true;
+    private int startPadding, endPadding;
+    private Rect lineRect = new Rect();
+    private Paint mPaint = new Paint();
 
     public McComparetemDecoration(boolean isVerticalList) {
         mPaint.setColor(Color.parseColor("#18000000"));
-        this.oritation = isVerticalList ? ORI_H : ORI_V;
+        this.mIsVerticalList = isVerticalList;
+    }
+
+    public McComparetemDecoration(boolean isVerticalList, int startPadding, int endPadding) {
+        this(isVerticalList);
+        this.startPadding = startPadding;
+        this.endPadding = endPadding;
+    }
+
+    public McComparetemDecoration(int color, boolean isVerticalList, int startPadding, int endPadding) {
+        this(isVerticalList, startPadding, endPadding);
+        mPaint.setColor(color);
     }
 
     @Override
     public void onDraw(Canvas c, RecyclerView parent, RecyclerView.State state) {
         super.onDraw(c, parent, state);
-        if (oritation == ORI_H) {
+        if (mIsVerticalList) {
             drawHDiv(c, parent);
-        } else if (oritation == ORI_V) {
+        } else {
             drawVDiv(c, parent);
         }
     }
 
+    //画竖条
     private void drawVDiv(Canvas c, RecyclerView parent) {
-        int top = parent.getPaddingTop();
-        int bottom = parent.getHeight() - parent.getPaddingBottom();
+        int top = parent.getPaddingTop() + startPadding;
+        int bottom = parent.getHeight() - parent.getPaddingBottom() - endPadding;
         final int childCount = parent.getChildCount();
         for (int i = 0; i < childCount; i++) {
             final View child = parent.getChildAt(i);
@@ -52,9 +62,10 @@ public class McComparetemDecoration extends RecyclerView.ItemDecoration {
         }
     }
 
+    // 画横条
     private void drawHDiv(Canvas c, RecyclerView parent) {
-        int left = parent.getPaddingLeft();
-        int right = parent.getWidth() - parent.getPaddingRight();
+        int left = parent.getPaddingLeft() + startPadding;
+        int right = parent.getWidth() - parent.getPaddingRight() - endPadding;
         final int childCount = parent.getChildCount();
         for (int i = 0; i < childCount; i++) {
             final View child = parent.getChildAt(i);
@@ -71,9 +82,9 @@ public class McComparetemDecoration extends RecyclerView.ItemDecoration {
     public void getItemOffsets(Rect outRect, View view, RecyclerView
             parent, RecyclerView.State state) {
         super.getItemOffsets(outRect, view, parent, state);
-        if (oritation == ORI_H) {
+        if (mIsVerticalList) {
             outRect.set(0, 0, 0, divWidth);
-        } else if (oritation == ORI_V) {
+        } else {
             outRect.set(0, 0, divWidth, 0);
         }
 

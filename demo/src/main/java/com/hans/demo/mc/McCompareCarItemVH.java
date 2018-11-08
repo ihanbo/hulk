@@ -19,7 +19,6 @@ import static android.view.View.VISIBLE;
  * @date 2018/11/5
  */
 public class McCompareCarItemVH extends RecyclerView.ViewHolder implements View.OnClickListener {
-    public static final int DEFAULT_WIDTH = 145;
     private TextView mTvCarSeries;
     private TextView mTvCarName;
     private ImageButton mBtnDel;
@@ -47,14 +46,16 @@ public class McCompareCarItemVH extends RecyclerView.ViewHolder implements View.
 
 
     private McCarSummary mData;
+    private int mPos = -1;
 
     public void setData(int position, McCarSummary data) {
-        mData = data;
         if (data == null) {
             mTvCarSeries.setVisibility(GONE);
             mTvCarName.setVisibility(GONE);
             return;
         }
+        mData = data;
+        mPos = position;
         mTvCarSeries.setVisibility(VISIBLE);
         mTvCarName.setVisibility(VISIBLE);
         mTvCarSeries.setText(data.series_name);
@@ -66,7 +67,7 @@ public class McCompareCarItemVH extends RecyclerView.ViewHolder implements View.
     public void onClick(View v) {
         if (v == mBtnDel) {
             if (mAddCarEvent != null) {
-                mAddCarEvent.deleteCar(mData);
+                mAddCarEvent.deleteCar(mData, mPos);
             }
         }
     }

@@ -1,9 +1,7 @@
 package com.hans.demo.mc;
 
 import android.app.Activity;
-import android.content.Context;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.util.SparseArray;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -16,15 +14,21 @@ import com.timehop.stickyheadersrecyclerview.StickyRecyclerHeadersAdapter;
 import java.util.ArrayList;
 import java.util.List;
 
-
-public class LinesAdapter extends RecyclerView.Adapter implements StickyRecyclerHeadersAdapter<LinesAdapter.HeadVH> {
+/**
+ * 参数纵向列表适配器
+ *
+ * @author hanbo
+ * @date 2018/11/6
+ */
+public class McParamsLinesAdapter extends RecyclerView.Adapter implements StickyRecyclerHeadersAdapter<McParamsLinesAdapter.HeadVH> {
 
     private List<McParamsModel.McLineBean> mLines;
+    private SparseArray<McParamsModel> mHeads;      //吸顶head数据
     private McCellsScrollHandler mScrollhandler;
     private McCompareTextPool mPool;
-    private RecyclerView.RecycledViewPool mRecycledViewPool;
+    private RecyclerView.RecycledViewPool mRecycledViewPool;    //公用的复用池
 
-    public LinesAdapter(Activity activity, McCellsScrollHandler scrollhandler) {
+    public McParamsLinesAdapter(Activity activity, McCellsScrollHandler scrollhandler) {
         mLines = new ArrayList<>();
         mScrollhandler = scrollhandler;
         mPool = new McCompareTextPool(activity);
@@ -77,10 +81,9 @@ public class LinesAdapter extends RecyclerView.Adapter implements StickyRecycler
 
     @Override
     public int getItemCount() {
-        return mLines.size();
+        return mLines == null ? 0 : mLines.size();
     }
 
-    private SparseArray<McParamsModel> mHeads;
 
     public void setData(List<McParamsModel.McLineBean> lines, SparseArray<McParamsModel> heads) {
         mLines = lines;
@@ -88,6 +91,7 @@ public class LinesAdapter extends RecyclerView.Adapter implements StickyRecycler
         notifyDataSetChanged();
     }
 
+    //吸顶头部
     static class HeadVH extends RecyclerView.ViewHolder {
 
         TextView title;

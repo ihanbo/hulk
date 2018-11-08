@@ -8,7 +8,9 @@
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginTop="@dimen/mc_dimen_8_dip"
+        android:layout_marginBottom="@dimen/mc_dimen_15_dip"
+        android:layout_marginLeft="@dimen/mc_dimen_5_dip"
+        android:layout_marginTop="@dimen/mc_dimen_15_dip"
         android:background="@drawable/mc_bg_compare_car_item">
 
     </FrameLayout>
@@ -18,10 +20,10 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:drawableTop="@drawable/mc_ic_compare_top_add_compare"
-        android:textColor="@color/mc_color_667187"
         android:drawablePadding="@dimen/mc_dimen_5_dip"
-        android:textSize="@dimen/mc_dimen_12_dip"
-        android:text="添加车型" />
+        android:drawableTop="@drawable/mc_ic_compare_top_add_compare"
+        android:text="添加车型"
+        android:textColor="@color/mc_color_667187"
+        android:textSize="@dimen/mc_dimen_12_dip" />
 
 </FrameLayout>

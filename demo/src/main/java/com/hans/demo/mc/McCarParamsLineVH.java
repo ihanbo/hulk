@@ -2,6 +2,7 @@ package com.hans.demo.mc;
 
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,14 +16,14 @@ import static android.view.View.GONE;
 import static android.view.View.VISIBLE;
 
 /**
- * 一行参数
+ * 一行参数的ViewHolder
  *
  * @author hanbo
  * @date 2018/11/5
  */
 public class McCarParamsLineVH extends RecyclerView.ViewHolder {
     private TextView mTvKey;
-    private CellsRecyclerView mRv;
+    private McMcCellsRecyclerView mRv;
     private TextView mTvSame;
 
     protected McCompareCellsAdapter mCellAdapter;
@@ -48,10 +49,10 @@ public class McCarParamsLineVH extends RecyclerView.ViewHolder {
 
     private void init() {
         mTvKey = (TextView) itemView.findViewById(R.id.tv_key);
-        mRv = (CellsRecyclerView) itemView.findViewById(R.id.rv);
+        mRv = (McMcCellsRecyclerView) itemView.findViewById(R.id.rv);
         mTvSame = (TextView) itemView.findViewById(R.id.tv_same);
         mRv.addItemDecoration(new McComparetemDecoration(false));
-        mRv.addItemDecoration(new ParamView.McStartEndMarginDecoration());
+        mRv.addItemDecoration(new McParamView.McStartEndMarginDecoration());
         mRv.setLayoutManager(new LinearLayoutManager(itemView.getContext(), LinearLayoutManager.HORIZONTAL, false));
         mMcCellsScrollHandler.regist(mRv);
         mCellAdapter = new McCompareCellsAdapter(mPool);
@@ -68,6 +69,7 @@ public class McCarParamsLineVH extends RecyclerView.ViewHolder {
 
     public void setData(int position, McParamsModel.McLineBean lineData) {
         mTvKey.setText(lineData.name);
+        Log.i("hh", "McCarParamsLineVH  : 行每次setdata时上一次的数据: " + mRv.getChildCount());
         if (!lineData.isSame()) {
             mRv.setVisibility(VISIBLE);
             mTvSame.setVisibility(GONE);
@@ -77,6 +79,7 @@ public class McCarParamsLineVH extends RecyclerView.ViewHolder {
             mTvSame.setVisibility(VISIBLE);
             mTvSame.setText(getSameText(lineData));
         }
+        //重新设置高度
         if (lineData.measureHeight > 0) {
             ViewGroup.LayoutParams layoutParams = itemView.getLayoutParams();
             layoutParams.height = lineData.measureHeight;
@@ -85,7 +88,12 @@ public class McCarParamsLineVH extends RecyclerView.ViewHolder {
     }
 
 
-    //获取合并后的一行内容
+    /**
+     * 读取合并行的 显示内容，异常情况返回""
+     *
+     * @param lineData 行数据
+     * @return
+     */
     public String getSameText(McParamsModel.McLineBean lineData) {
         if (lineData.values != null && !lineData.values.isEmpty()
                 && lineData.values.get(0) != null && !lineData.values.get(0).isEmpty()) {

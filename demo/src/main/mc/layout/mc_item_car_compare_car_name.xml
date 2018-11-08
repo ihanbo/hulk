@@ -2,65 +2,67 @@
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="@dimen/mc_dimen_145_dip"
-    android:background="@null"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@null">
 
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginTop="@dimen/mc_dimen_8_dip"
+        android:layout_marginBottom="@dimen/mc_dimen_15_dip"
+        android:layout_marginLeft="@dimen/mc_dimen_5_dip"
+        android:layout_marginTop="@dimen/mc_dimen_15_dip"
         android:background="@drawable/mc_bg_compare_car_item">
 
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:orientation="vertical"
+            android:paddingBottom="@dimen/mc_dimen_18_dip"
+            android:paddingLeft="@dimen/mc_dimen_18_dip"
+            android:paddingRight="@dimen/mc_dimen_35_dip"
+            android:paddingTop="@dimen/mc_dimen_25_dip">
+
+            <TextView
+                android:id="@+id/tv_car_series"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/mc_color_192132"
+                android:textSize="@dimen/mc_dimen_14_dip"
+                android:textStyle="bold"
+                tools:text="奥迪A55 查收马丁内斯那" />
+
+            <TextView
+                android:id="@+id/tv_car_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:layout_marginTop="@dimen/mc_dimen_8_dip"
+                android:textColor="@color/mc_color_192132"
+                android:textSize="@dimen/mc_dimen_12_dip"
+                tools:text="2017款 超撒娇的撒谎返回键撒回家倒计时超撒娇的撒谎返回键撒回家倒计时" />
+        </LinearLayout>
+
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="right|center_vertical"
+            android:layout_marginRight="@dimen/mc_dimen_10_dip"
+            android:background="@null"
+            android:src="@drawable/mc_ic_compare_switch" />
+
     </FrameLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:orientation="vertical"
-        android:paddingBottom="@dimen/mc_dimen_18_dip"
-        android:paddingLeft="@dimen/mc_dimen_18_dip"
-        android:paddingRight="@dimen/mc_dimen_30_dip"
-        android:paddingTop="@dimen/mc_dimen_25_dip">
-
-        <TextView
-            android:id="@+id/tv_car_series"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textColor="@color/mc_color_192132"
-            android:textSize="@dimen/mc_dimen_14_dip"
-            android:textStyle="bold"
-            tools:text="奥迪A55 查收马丁内斯那" />
-
-        <TextView
-            android:id="@+id/tv_car_name"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerInParent="true"
-            android:layout_marginTop="@dimen/mc_dimen_8_dip"
-            android:textColor="@color/mc_color_192132"
-            android:textSize="@dimen/mc_dimen_12_dip"
-            tools:text="2017款 超撒娇的撒谎返回键撒回家倒计时超撒娇的撒谎返回键撒回家倒计时" />
-    </LinearLayout>
 
     <ImageButton
         android:id="@+id/btn_del"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="right"
+        android:layout_marginTop="@dimen/mc_dimen_5_dip"
         android:background="@null"
-        android:paddingLeft="@dimen/mc_dimen_5_dip"
-        android:paddingBottom="@dimen/mc_dimen_5_dip"
-
+        android:padding="@dimen/mc_dimen_5_dip"
         android:src="@drawable/mc_ic_compare_car_del" />
-
-
-    <ImageView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="right|center_vertical"
-        android:layout_marginRight="@dimen/mc_dimen_18_dip"
-        android:background="@null"
-        android:src="@drawable/mc_ic_compare_switch" />
 
 </FrameLayout>

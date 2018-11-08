@@ -17,7 +17,7 @@ import com.hans.demo.R;
 import java.util.List;
 
 /**
- * 惨淡适配器
+ * 菜单适配器
  *
  * @author hanbo
  * @date 2018/11/7

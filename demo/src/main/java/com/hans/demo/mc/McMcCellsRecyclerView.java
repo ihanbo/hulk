@@ -10,29 +10,27 @@ import android.view.MotionEvent;
 /**
  * 参数条目横向的recyclerview
  * 隐藏了触摸事件处理，所有动作由外部调动
+ *
+ * @author hanbo
+ * @date 2018/11/5
  */
 
-public class CellsRecyclerView extends RecyclerView implements CellsContainer {
+public class McMcCellsRecyclerView extends RecyclerView implements McCellsContainer {
 
     private LinearLayoutManager mLayoutManager;
 
-    public CellsRecyclerView(Context context) {
+    public McMcCellsRecyclerView(Context context) {
         super(context);
-        init();
     }
 
-    public CellsRecyclerView(Context context, @Nullable AttributeSet attrs) {
+    public McMcCellsRecyclerView(Context context, @Nullable AttributeSet attrs) {
         super(context, attrs);
-        init();
     }
 
-    public CellsRecyclerView(Context context, @Nullable AttributeSet attrs, int defStyle) {
+    public McMcCellsRecyclerView(Context context, @Nullable AttributeSet attrs, int defStyle) {
         super(context, attrs, defStyle);
-        init();
     }
 
-    private void init() {
-    }
 
     @Override
     public void setLayoutManager(LayoutManager layoutManager) {
@@ -53,7 +51,9 @@ public class CellsRecyclerView extends RecyclerView implements CellsContainer {
         if (mLayoutManager == null) {
             mLayoutManager = (LinearLayoutManager) getLayoutManager();
         }
-        mLayoutManager.scrollToPositionWithOffset(position, positionOffset);
+        if (mLayoutManager != null) {
+            mLayoutManager.scrollToPositionWithOffset(position, positionOffset);
+        }
     }
 
 

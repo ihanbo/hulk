@@ -10,6 +10,7 @@ import java.util.Collections;
 import java.util.List;
 
 /**
+ *
  * @author hanbo
  * @date 2018/11/6
  */
@@ -17,7 +18,7 @@ public class McCompareController {
 
 
     private Activity mActivity;
-    private ParamView mView;
+    private McParamView mView;
     private McCompareCalculate mCalculate;
 
     public McCompareController(Activity activity) {
@@ -26,7 +27,7 @@ public class McCompareController {
     }
 
 
-    public void onViewCreated(ParamView view) {
+    public void onViewCreated(McParamView view) {
         mView = view;
         mView.setController(this);
 
@@ -34,7 +35,7 @@ public class McCompareController {
     }
 
     public void deleteCar(McCarSummary data) {
-
+        //TODO 删车
     }
 
     //添加车型
@@ -58,7 +59,6 @@ public class McCompareController {
         }
 
         mView.setDataWithoutCar(mCurrentData, mCurrentHeads);
-
     }
 
 
@@ -153,15 +153,19 @@ public class McCompareController {
         mView.setData(data.model_infos, mCurrentData, mCurrentHeads, carMostHeight);
     }
 
+    //跳转指定位置
     public void jumpTo(McParamsModel data, int pos) {
         if (pos == 0) {
             mView.scrollTo(0);
         } else {
-            mView.scrollTo(mCurrentHeads.keyAt(pos - 1) + 1);
+            int to = mCurrentHeads.keyAt(pos - 1) + 1;
+            Log.i("hh", "McCompareController  : jumpTo: " + to);
+            mView.scrollTo(to);
         }
     }
 
 
+    //打开菜单
     public void openMenu() {
         if (mCurrentHeads == null || mCurrentHeads.size() == 0) {
             mView.showMenu(0);

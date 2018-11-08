@@ -7,6 +7,8 @@ import android.view.ViewGroup;
 import java.util.List;
 
 /**
+ * 参数行横向数据适配器
+ *
  * @author hanbo
  * @date 2018/11/5
  */
@@ -44,20 +46,5 @@ public class McCompareCellsAdapter extends RecyclerView.Adapter<McCompareParamsI
         this.values = values;
         notifyItemRangeInserted(0, values.size());
     }
-
-    /*public static class McCompareCellVH extends RecyclerView.ViewHolder {
-
-        public McCompareCellVH(View itemView) {
-            super(itemView);
-        }
-
-        public void setData(List<String> lineBean, int position) {
-            ((McCompareParamsItem) itemView).setData(lineBean, position);
-        }
-
-        public void recycle() {
-            ((McCompareParamsItem) itemView).recycleAll();
-        }
-    }*/
 
 }
