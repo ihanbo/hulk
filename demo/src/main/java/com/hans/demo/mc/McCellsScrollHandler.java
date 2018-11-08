@@ -25,6 +25,10 @@ public class McCellsScrollHandler {
         mMcCellsContainer.add(mcCellsContainer);
     }
 
+    public void setInitOffset(McCellsContainer mcCellsContainer) {
+        mcCellsContainer.initOffset(position, offset);
+    }
+
     public void unregistContainer(McCellsContainer mcCellsContainer) {
         mMcCellsContainer.remove(mMcCellsContainer);
     }

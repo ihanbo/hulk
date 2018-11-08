@@ -138,6 +138,14 @@ public class McParamView implements View.OnClickListener {
         mParamsView.setLayoutManager(new LinearLayoutManager(view.getContext(), LinearLayoutManager.VERTICAL, false));
         mParamsView.addItemDecoration(new McComparetemDecoration(true ));
         mParamsView.addItemDecoration(new StickyRecyclerHeadersDecoration(mParamsAdapter));
+        mParamsView.setRecyclerListener(new RecyclerView.RecyclerListener() {
+            @Override
+            public void onViewRecycled(RecyclerView.ViewHolder holder) {
+                if(holder instanceof McCarParamsLineVH){
+                    ((McCarParamsLineVH)holder).recycle();
+                }
+            }
+        });
     }
 
 

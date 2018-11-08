@@ -74,6 +74,8 @@ public class McCarParamsLineVH extends RecyclerView.ViewHolder {
             mRv.setVisibility(VISIBLE);
             mTvSame.setVisibility(GONE);
             mCellAdapter.setData(lineData.values);
+            mRv.setAdapter(mCellAdapter);
+            mMcCellsScrollHandler.setInitOffset(mRv);
         } else {
             mRv.setVisibility(GONE);
             mTvSame.setVisibility(VISIBLE);
@@ -133,4 +135,11 @@ public class McCarParamsLineVH extends RecyclerView.ViewHolder {
             }
         }
     };
+
+    public void recycle() {
+        if (mCellAdapter != null) {
+            mRv.setAdapter(null);
+            Log.i("hh", "McCarParamsLineVH  : recycle: 了" + mRv.getChildCount());
+        }
+    }
 }

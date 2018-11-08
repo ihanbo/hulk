@@ -2,6 +2,7 @@ package com.hans.demo.mc;
 
 import android.app.Activity;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.util.SparseArray;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -32,7 +33,13 @@ public class McParamsLinesAdapter extends RecyclerView.Adapter implements Sticky
         mLines = new ArrayList<>();
         mScrollhandler = scrollhandler;
         mPool = new McCompareTextPool(activity);
-        mRecycledViewPool = new RecyclerView.RecycledViewPool();
+        mRecycledViewPool = new RecyclerView.RecycledViewPool() {
+            @Override
+            public void clear() {
+                Log.i("hh", "McParamsLinesAdapter  : 调用了清理");
+                super.clear();
+            }
+        };
         mRecycledViewPool.setMaxRecycledViews(0, 64);
     }
 
