@@ -84,7 +84,7 @@ public class McCompareCarAdapter extends RecyclerView.Adapter {
     }
 
 
-    private static class AddCarHolder extends RecyclerView.ViewHolder {
+    public static class AddCarHolder extends RecyclerView.ViewHolder {
 
         private int position;
 

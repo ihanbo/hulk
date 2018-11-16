@@ -2,6 +2,7 @@ package com.didi.theonebts.minecraft.car.compare;
 
 import android.app.Activity;
 import android.app.Application;
+import android.text.TextUtils;
 import android.util.DisplayMetrics;
 import android.util.TypedValue;
 import android.view.View;
@@ -25,8 +26,8 @@ public class McCompareCalculate {
 
     public static final int DEFAULT_HEIGHT = dP2px(60);
     public static final int DEFAULT_WIDTH = dP2px(145);
-    public static final int KEY_WIDTH = dP2px(95);
-
+    public static final int KEY_WIDTH = dP2px(85);
+    public static final int SAME_TEXT_WIDTH = displayMetrics.widthPixels - dP2px(95);
 
     public static final int LINE_END_PADDING = dP2px(10);
 
@@ -35,16 +36,18 @@ public class McCompareCalculate {
     private McCompareParamsItemVH paramsItem;   //参数单元格
     private McCompareCarItemVH carItem;         //顶部车型的条目
 
-    private static int keyWidthMeasureSpec = View.MeasureSpec.makeMeasureSpec(KEY_WIDTH, View.MeasureSpec.EXACTLY);         //键的宽度测量spec
-    private static int paramsWidthMeasureSpec = View.MeasureSpec.makeMeasureSpec(DEFAULT_WIDTH, View.MeasureSpec.EXACTLY);  //参数单元格的宽度测量spec
+    private static int keyWidthMeasureSpec = View.MeasureSpec.makeMeasureSpec(KEY_WIDTH, View.MeasureSpec.EXACTLY);             //键的宽度测量spec
+    private static int paramsWidthMeasureSpec = View.MeasureSpec.makeMeasureSpec(DEFAULT_WIDTH, View.MeasureSpec.EXACTLY);      //参数单元格的宽度测量spec
+    private static int sameTextWidthMeasureSpec = View.MeasureSpec.makeMeasureSpec(SAME_TEXT_WIDTH, View.MeasureSpec.EXACTLY);  //键的宽度测量spec
     private static int atMostMeasureSpec = View.MeasureSpec.makeMeasureSpec((1 << 30) - 1, View.MeasureSpec.AT_MOST);
+
 
     public McCompareCalculate(Activity activity) {
         mKey = new TextView(getApp());
         displayMetrics = getApp().getResources().getDisplayMetrics();
         int dp10 = dP2px(10);
         mKey.setPadding(dp10, dp10, dp10, dp10);
-        mKey.setTextSize(12, TypedValue.COMPLEX_UNIT_DIP);
+        mKey.setTextSize(TypedValue.COMPLEX_UNIT_DIP, 12);
         mKey.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
 
         paramsItem = new McCompareParamsItemVH(new LinearLayout(getApp()), new McCompareTextPool(activity));
@@ -58,10 +61,10 @@ public class McCompareCalculate {
 
     //计算行高
     public void preMeasureLineHeight(McParamsModel.McLineBean line) {
-        line.measureHeight = preMeasureLineHeight(line.name, line.values);
+        line.measureHeight = preMeasureLineHeight(line.name, line.values, !TextUtils.isEmpty(line.colspan));
     }
 
-    private int preMeasureLineHeight(String key, List<List<String>> datas) {
+    private int preMeasureLineHeight(String key, List<List<String>> datas, boolean isSame) {
         if (key == null && (datas == null || datas.isEmpty())) {
             return DEFAULT_HEIGHT;
         }
@@ -73,6 +76,13 @@ public class McCompareCalculate {
 
         if (datas == null || datas.isEmpty()) {
             return height;
+        }
+
+        if (isSame) {
+            mKey.setText(getSameText(datas.get(0)));
+            mKey.measure(sameTextWidthMeasureSpec, atMostMeasureSpec);
+            int sameLineHeight = mKey.getMeasuredHeight();
+            return Math.max(height, sameLineHeight);
         }
 
         paramsItem.recycle();
@@ -119,5 +129,27 @@ public class McCompareCalculate {
         return (int) (TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, dp, displayMetrics) + 0.5f);
     }
 
+    public static String getSameText(List<String> sameLineText) {
+        if (sameLineText == null || sameLineText.isEmpty()){
+            return "";
+        }
 
+        int len = sameLineText.size();
+
+        if (len == 1) {
+            return sameLineText.get(0);
+        } else {
+            StringBuilder sb = new StringBuilder();
+            for (int i = 0, size = sameLineText.size(); i < size; i++) {
+                if (TextUtils.isEmpty(sameLineText.get(i))) {
+                    continue;
+                }
+                sb.append(sameLineText.get(i)).append("\n");
+            }
+            if (sb.length() > 0) {
+                sb.deleteCharAt(sb.length() - 1);
+            }
+            return sb.toString();
+        }
+    }
 }

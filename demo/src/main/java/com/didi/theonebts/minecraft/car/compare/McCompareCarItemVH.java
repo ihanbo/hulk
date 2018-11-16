@@ -76,4 +76,11 @@ public class McCompareCarItemVH extends RecyclerView.ViewHolder implements View.
         return itemView;
     }
 
+    public void onDraged() {
+
+    }
+
+    public void onDroped() {
+
+    }
 }

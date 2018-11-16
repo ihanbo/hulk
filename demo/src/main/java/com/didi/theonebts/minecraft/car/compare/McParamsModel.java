@@ -39,7 +39,7 @@ public class McParamsModel {
         public String name;
         public String configure_id;
         public String field;
-        public String colspan;
+        public String colspan;   //不为空说明是合并项
         public List<List<String>> values;
 
         public int measureHeight;

@@ -2,10 +2,12 @@ package com.didi.theonebts.minecraft.car.compare;
 
 
 import android.app.Activity;
+import android.graphics.Canvas;
 import android.graphics.Rect;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.helper.ItemTouchHelper;
+import android.util.Log;
 import android.util.SparseArray;
 import android.view.MotionEvent;
 import android.view.View;
@@ -115,7 +117,7 @@ public class McCompareParamView implements View.OnClickListener {
         mHeaderContentView.setAdapter(mCarAdapter);
 
         //拖动处理
-        ItemTouchHelper helper = new ItemTouchHelper(new McDragCallBack(mCarAdapter));
+        ItemTouchHelper helper = new ItemTouchHelper(new ItemTouchHelperCallback(mCarAdapter));
         helper.attachToRecyclerView(mHeaderContentView);
 
 
@@ -136,13 +138,13 @@ public class McCompareParamView implements View.OnClickListener {
         }
         mParamsView.setAdapter(mParamsAdapter);
         mParamsView.setLayoutManager(new LinearLayoutManager(view.getContext(), LinearLayoutManager.VERTICAL, false));
-        mParamsView.addItemDecoration(new McComparetemDecoration(true ));
+        mParamsView.addItemDecoration(new McComparetemDecoration(true));
         mParamsView.addItemDecoration(new StickyRecyclerHeadersDecoration(mParamsAdapter));
         mParamsView.setRecyclerListener(new RecyclerView.RecyclerListener() {
             @Override
             public void onViewRecycled(RecyclerView.ViewHolder holder) {
-                if(holder instanceof McCarParamsLineVH){
-                    ((McCarParamsLineVH)holder).recycle();
+                if (holder instanceof McCarParamsLineVH) {
+                    ((McCarParamsLineVH) holder).recycle();
                 }
             }
         });
@@ -226,6 +228,9 @@ public class McCompareParamView implements View.OnClickListener {
 
         @Override
         public int getMovementFlags(RecyclerView recyclerView, RecyclerView.ViewHolder viewHolder) {
+            if (viewHolder == null || viewHolder instanceof McCompareCarAdapter.AddCarHolder) {
+                return makeMovementFlags(0, 0);
+            }
             int dragFlag = ItemTouchHelper.LEFT | ItemTouchHelper.RIGHT;
             int swipeFlag = ItemTouchHelper.START | ItemTouchHelper.END;
             return makeMovementFlags(dragFlag, 0);
@@ -233,7 +238,7 @@ public class McCompareParamView implements View.OnClickListener {
 
         @Override
         public boolean onMove(RecyclerView recyclerView, RecyclerView.ViewHolder viewHolder, RecyclerView.ViewHolder target) {
-            if (mCarAdapter == null) {
+            if (mCarAdapter == null || target instanceof McCompareCarAdapter.AddCarHolder) {
                 return false;
             }
             int targetPos = target.getAdapterPosition();
@@ -267,6 +272,108 @@ public class McCompareParamView implements View.OnClickListener {
                 outRect.set(0, 0, 0, 0);
             }
 
+        }
+    }
+
+
+    public class ItemTouchHelperCallback extends ItemTouchHelper.Callback {
+        private McCompareCarAdapter itemTouchHelperAdapter;
+        private float ALPHA_FULL = 1.0f;
+
+        ItemTouchHelperCallback(McCompareCarAdapter itemTouchHelperAdapter) {
+            this.itemTouchHelperAdapter = itemTouchHelperAdapter;
+        }
+
+        /**
+         * RecyclerView item支持长按进入拖动操作
+         */
+        @Override
+        public boolean isLongPressDragEnabled() {
+            return true;
+        }
+
+        /**
+         * RecyclerView item任意位置触发启用滑动操作
+         */
+        @Override
+        public boolean isItemViewSwipeEnabled() {
+            return false;
+        }
+
+        /**
+         * 指定可以支持的拖放和滑动的方向，上下为拖动（drag），左右为滑动（swipe）
+         */
+        @Override
+        public int getMovementFlags(RecyclerView recyclerView, RecyclerView.ViewHolder viewHolder) {
+            int dragFlag = ItemTouchHelper.LEFT | ItemTouchHelper.RIGHT;
+            int swipeFlag = 0;
+            return makeMovementFlags(dragFlag, swipeFlag);
+        }
+
+        /**
+         * 滑动操作
+         */
+        @Override
+        public boolean onMove(RecyclerView recyclerView, RecyclerView.ViewHolder viewHolder, RecyclerView.ViewHolder target) {
+            if (mCarAdapter == null) {
+                return false;
+            }
+            if (viewHolder.getItemViewType() != target.getItemViewType()) {
+                return false;
+            }
+            Log.wtf("hh", "McDragCallBack  : onMove: ");
+            mCarAdapter.onMove(viewHolder.getAdapterPosition(), target.getAdapterPosition());
+            return true;
+        }
+
+        /**
+         * 删掉操作
+         */
+        @Override
+        public void onSwiped(RecyclerView.ViewHolder viewHolder, int direction) {
+        }
+
+        @Override
+        public void onChildDraw(Canvas c, RecyclerView recyclerView, RecyclerView.ViewHolder viewHolder, float dX, float dY, int actionState, boolean isCurrentlyActive) {
+            if (actionState == ItemTouchHelper.ACTION_STATE_SWIPE) {
+                //自定义滑动动画
+                final float alpha = ALPHA_FULL - Math.abs(dX) / (float) viewHolder.itemView.getWidth();
+                viewHolder.itemView.setAlpha(alpha);
+                viewHolder.itemView.setTranslationX(dX);
+            } else {
+                super.onChildDraw(c, recyclerView, viewHolder, dX, dY, actionState, isCurrentlyActive);
+            }
+        }
+
+        private int moveStartPos = -1;
+
+        @Override
+        public void onSelectedChanged(RecyclerView.ViewHolder viewHolder, int actionState) {
+            super.onSelectedChanged(viewHolder, actionState);
+            if (actionState != ItemTouchHelper.ACTION_STATE_IDLE) {
+                if (viewHolder instanceof McCompareCarItemVH) {
+                    moveStartPos = viewHolder.getAdapterPosition();
+                    McCompareCarItemVH itemViewHolder = (McCompareCarItemVH) viewHolder;
+                    //选中状态回调
+                    itemViewHolder.onDraged();
+                }
+            }
+
+        }
+
+        @Override
+        public void clearView(RecyclerView recyclerView, RecyclerView.ViewHolder viewHolder) {
+            super.clearView(recyclerView, viewHolder);
+            if (viewHolder instanceof McCompareCarItemVH) {
+                McCompareCarItemVH itemViewHolder = (McCompareCarItemVH) viewHolder;
+                //未选中状态回调
+                itemViewHolder.onDroped();
+                int newPos = viewHolder.getAdapterPosition();
+                if (moveStartPos != newPos) {
+                    //TODO 切换
+
+                }
+            }
         }
     }
 }
